@@ -458,7 +458,7 @@ function App() {
             <button type="button" className="header-icon-button" onClick={() => setDarkMode((enabled) => !enabled)} aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'} title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}>{darkMode ? <SunIcon /> : <MoonIcon />}</button>
             <button type="button" className="header-icon-button" onClick={handleHome} aria-label="Return home" title="Return home"><HomeIcon /></button>
           </div>}
-          {recipe && <button type="button" className="tour-launch" onClick={() => setShowTour(true)}>How this works</button>}
+          {recipe && activeView === 'matrix' && <button type="button" className="tour-launch" onClick={() => setShowTour(true)}>How this works</button>}
           {!recipe && <div className="empty-header-tools"><button type="button" className="theme-toggle" onClick={() => setDarkMode((enabled) => !enabled)}>{darkMode ? 'Light mode' : 'Dark mode'}</button></div>}
         </header>
 
