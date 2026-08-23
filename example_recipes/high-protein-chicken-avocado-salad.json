@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "title": "High-Protein Chicken Avocado Salad",
+  "servings": { "display": "2" },
+  "components": [
+    { "id": "component-main", "name": "Main" }
+  ],
+  "ingredients": [
+    { "id": "ingredient-chicken", "component_id": "component-main", "row_order": 1, "first_use_step": 2, "display": "12 oz / 340 g boneless, skinless chicken breast", "quantity": { "value": 12, "min": null, "max": null, "unit": "oz", "display": "12 oz / 340 g", "qualifier": "boneless, skinless" }, "name": "chicken breast", "prep": null, "optional": false },
+    { "id": "ingredient-salt", "component_id": "component-main", "row_order": 2, "first_use_step": 2, "display": "½ tsp kosher salt, divided", "quantity": { "value": 0.5, "min": null, "max": null, "unit": "tsp", "display": "½ tsp", "qualifier": "divided" }, "name": "kosher salt", "prep": null, "optional": false },
+    { "id": "ingredient-pepper", "component_id": "component-main", "row_order": 3, "first_use_step": 2, "display": "¼ tsp black pepper, plus more to taste", "quantity": { "value": 0.25, "min": null, "max": null, "unit": "tsp", "display": "¼ tsp", "qualifier": "plus more to taste" }, "name": "black pepper", "prep": null, "optional": false },
+    { "id": "ingredient-avocado", "component_id": "component-main", "row_order": 4, "first_use_step": 7, "display": "70 g avocado, diced", "quantity": { "value": 70, "min": null, "max": null, "unit": "g", "display": "70 g", "qualifier": null }, "name": "avocado", "prep": "diced", "optional": false },
+    { "id": "ingredient-yogurt", "component_id": "component-main", "row_order": 5, "first_use_step": 7, "display": "80 g 0% Greek yogurt", "quantity": { "value": 80, "min": null, "max": null, "unit": "g", "display": "80 g", "qualifier": "0%" }, "name": "Greek yogurt", "prep": null, "optional": false },
+    { "id": "ingredient-lemon-juice", "component_id": "component-main", "row_order": 6, "first_use_step": 7, "display": "2 tbsp fresh lemon juice", "quantity": { "value": 2, "min": null, "max": null, "unit": "tbsp", "display": "2 tbsp", "qualifier": "fresh" }, "name": "lemon juice", "prep": null, "optional": false },
+    { "id": "ingredient-cucumber", "component_id": "component-main", "row_order": 7, "first_use_step": 7, "display": "100 g cucumber, diced", "quantity": { "value": 100, "min": null, "max": null, "unit": "g", "display": "100 g", "qualifier": null }, "name": "cucumber", "prep": "diced", "optional": false },
+    { "id": "ingredient-dill", "component_id": "component-main", "row_order": 8, "first_use_step": 7, "display": "1 tbsp fresh dill, chopped, optional", "quantity": { "value": 1, "min": null, "max": null, "unit": "tbsp", "display": "1 tbsp", "qualifier": "fresh" }, "name": "dill", "prep": "chopped", "optional": true },
+    { "id": "ingredient-hot-sauce", "component_id": "component-main", "row_order": 9, "first_use_step": 9, "display": "Hot sauce, to taste, optional", "quantity": { "value": null, "min": null, "max": null, "unit": null, "display": "to taste", "qualifier": "to taste" }, "name": "hot sauce", "prep": null, "optional": true }
+  ],
+  "steps": [
+    { "id": "step-1", "order": 1, "text": "Preheat the steam oven to 375°F / 190°C with 30% steam.", "card_label": "Preheat steam oven", "card_detail": "375°F / 190°C · 30% steam", "inputs": [], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-2", "order": 2, "text": "Pat the chicken dry and season with about ¼ tsp kosher salt and ¼ tsp black pepper.", "card_label": "Season chicken", "card_detail": "about ¼ tsp salt · ¼ tsp pepper", "inputs": [{ "type": "ingredient", "id": "ingredient-chicken" }, { "type": "ingredient", "id": "ingredient-salt" }, { "type": "ingredient", "id": "ingredient-pepper" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-3", "order": 3, "text": "Place the chicken on a lightly greased sheet pan or baking dish.", "card_label": "Place chicken for cooking", "card_detail": "lightly greased sheet pan or baking dish", "inputs": [{ "type": "ingredient", "id": "ingredient-chicken" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-4", "order": 4, "text": "Cook until the thickest part of the chicken reaches 165°F / 74°C, approximately 15–20 minutes, depending on thickness.", "card_label": "Cook chicken", "card_detail": "165°F / 74°C · 15–20 min · depends on thickness", "inputs": [{ "type": "ingredient", "id": "ingredient-chicken" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-5", "order": 5, "text": "Remove the chicken from the oven and let it rest for 5 minutes.", "card_label": "Rest chicken", "card_detail": "5 minutes", "inputs": [{ "type": "ingredient", "id": "ingredient-chicken" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-6", "order": 6, "text": "Dice or shred the chicken into bite-sized pieces.", "card_label": "Dice or shred chicken", "card_detail": "bite-sized pieces", "inputs": [{ "type": "ingredient", "id": "ingredient-chicken" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-7", "order": 7, "text": "Add the chicken, avocado, Greek yogurt, lemon juice, cucumber, remaining salt, and dill to a bowl.", "card_label": "Add salad ingredients", "card_detail": "add remaining salt and optional dill", "inputs": [{ "type": "ingredient", "id": "ingredient-chicken" }, { "type": "ingredient", "id": "ingredient-avocado" }, { "type": "ingredient", "id": "ingredient-yogurt" }, { "type": "ingredient", "id": "ingredient-lemon-juice" }, { "type": "ingredient", "id": "ingredient-cucumber" }, { "type": "ingredient", "id": "ingredient-salt" }, { "type": "ingredient", "id": "ingredient-dill" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-8", "order": 8, "text": "Gently mix until evenly combined.", "card_label": "Gently mix salad", "card_detail": "evenly combined", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-9", "order": 9, "text": "Taste and adjust with additional salt, black pepper, lemon juice, or hot sauce.", "card_label": "Taste and adjust", "card_detail": "additional salt, pepper, lemon juice, or hot sauce", "inputs": [{ "type": "component", "id": "component-main" }, { "type": "ingredient", "id": "ingredient-salt" }, { "type": "ingredient", "id": "ingredient-pepper" }, { "type": "ingredient", "id": "ingredient-lemon-juice" }, { "type": "ingredient", "id": "ingredient-hot-sauce" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-10", "order": 10, "text": "Serve immediately or refrigerate until chilled.", "card_label": "Serve or chill", "card_detail": "serve immediately or refrigerate until chilled", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] }
+  ],
+  "notes": [
+    { "id": "note-1", "text": "If the chicken breasts are especially thick, pound them to an even thickness before cooking for more predictable results.", "related_ids": ["ingredient-chicken", "step-3", "step-4"] },
+    { "id": "note-2", "text": "Chicken thighs also work well. Use about 12 oz / 340 g boneless, skinless thighs and cook to at least 165°F / 74°C; I prefer them around 175°F / 79°C for better texture.", "related_ids": ["step-4"] },
+    { "id": "note-3", "text": "This version is especially good over greens, in a gluten-free wrap, or eaten on its own as a lower-carb lunch.", "related_ids": [] }
+  ],
+  "validation": {
+    "needs_review": false,
+    "issues": []
+  }
+}
