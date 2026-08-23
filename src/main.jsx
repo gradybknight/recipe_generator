@@ -132,14 +132,51 @@ function OperationCell({ layout, column, onComplete }) {
   )
 }
 
+function MobileMatrix({ recipe, ingredients, layouts, completedThrough, onComplete, onUndo }) {
+  const componentItems = Object.fromEntries(recipe.components.map((component) => [component.id, ingredients.filter((item) => item.component_id === component.id)]))
+  const inputsFor = (step) => {
+    const seen = new Set()
+    return step.inputs.flatMap((token) => {
+      const items = token.type === 'ingredient'
+        ? [ingredients.find((item) => item.id === token.id)]
+        : (componentItems[token.id] || []).filter((item) => item.first_use_step !== null && item.first_use_step < step.order)
+      return items.filter((item) => item && !seen.has(item.id) && seen.add(item.id))
+    })
+  }
+
+  return (
+    <div className="mobile-matrix">
+      {completedThrough > 0 && <div className="mobile-completed">
+        <span className="summary-check">✓</span>
+        <div><strong>Completed through step {completedThrough}</strong><small>Ingredients are ready and tucked away</small></div>
+        <button type="button" onClick={onUndo}>undo</button>
+      </div>}
+      <div className="mobile-step-list">
+        {layouts.map((layout) => {
+          const items = inputsFor(layout.step)
+          return <article className="mobile-step-card" key={layout.step.id}>
+            <div className="mobile-step-heading"><span>{String(layout.step.order).padStart(2, '0')}</span><strong>{layout.step.card_label}</strong></div>
+            {layout.step.card_detail && <small className="mobile-step-detail">{layout.step.card_detail}</small>}
+            {items.length > 0 && <div className="mobile-step-ingredients">
+              {items.map((item) => <div key={item.id}><span>{item.quantity.display}</span>{item.name}{item.prep && <em>, {item.prep}</em>}</div>)}
+            </div>}
+            <button type="button" className="mobile-complete-button" onClick={() => onComplete(layout.step.order)}>Mark complete</button>
+          </article>
+        })}
+      </div>
+    </div>
+  )
+}
+
 function RecipeMatrix({ recipe, completedThrough, onComplete, onUndo }) {
   const { ingredients, rows, layouts } = useMemo(() => buildView(recipe, completedThrough), [recipe, completedThrough])
   const hasCompleted = completedThrough > 0
   const columnCount = layouts.length + (hasCompleted ? 1 : 0) + 1
   const operationOffset = hasCompleted ? 1 : 0
   return (
-    <div className="matrix-scroll">
-      <div className="recipe-matrix" style={{ '--matrix-columns': columnCount, '--ingredient-rows': rows.length }}>
+    <>
+      <div className="matrix-scroll matrix-desktop">
+        <div className="recipe-matrix" style={{ '--matrix-columns': columnCount, '--ingredient-rows': rows.length }}>
         <div className="matrix-head ingredient-head">Ingredients</div>
         {hasCompleted && <button type="button" className="matrix-head completed-head" onClick={onUndo} title={`Undo step ${completedThrough}`}><span>✓</span> 01–{String(completedThrough).padStart(2, '0')} <small>undo {String(completedThrough).padStart(2, '0')}</small></button>}
         {layouts.map((layout, index) => (
@@ -159,8 +196,10 @@ function RecipeMatrix({ recipe, completedThrough, onComplete, onUndo }) {
           <OperationCell layout={layout} column={index + operationOffset} onComplete={onComplete} key={layout.step.id} />
         ))}
         <div className="matrix-endcap" />
+        </div>
       </div>
-    </div>
+      <MobileMatrix recipe={recipe} ingredients={ingredients} layouts={layouts} completedThrough={completedThrough} onComplete={onComplete} onUndo={onUndo} />
+    </>
   )
 }
 
