@@ -1,0 +1,615 @@
+{
+  "schema_version": "1.0",
+  "title": "Oven-Baked Chicken Wings with Two Finishing Sauces",
+  "servings": {
+    "display": "Not specified"
+  },
+  "components": [
+    {
+      "id": "component-chicken-wings",
+      "name": "Chicken Wings"
+    },
+    {
+      "id": "component-sriracha-sauce",
+      "name": "Hot Sriracha-Butter Sauce"
+    },
+    {
+      "id": "component-honey-glaze",
+      "name": "Sweet Mild Honey-Garlic Glaze"
+    }
+  ],
+  "ingredients": [
+    {
+      "id": "ingredient-oil",
+      "component_id": "component-chicken-wings",
+      "row_order": 1,
+      "first_use_step": 2,
+      "display": "Neutral oil, for lightly greasing the pans",
+      "quantity": {
+        "value": null,
+        "min": null,
+        "max": null,
+        "unit": null,
+        "display": "Neutral oil",
+        "qualifier": "for lightly greasing the pans"
+      },
+      "name": "neutral oil",
+      "prep": "for lightly greasing the pans",
+      "optional": false
+    },
+    {
+      "id": "ingredient-wings",
+      "component_id": "component-chicken-wings",
+      "row_order": 2,
+      "first_use_step": 3,
+      "display": "5 lb chicken wings, split into flats and drumettes",
+      "quantity": {
+        "value": 5,
+        "min": null,
+        "max": null,
+        "unit": "lb",
+        "display": "5 lb",
+        "qualifier": null
+      },
+      "name": "chicken wings",
+      "prep": "split into flats and drumettes",
+      "optional": false
+    },
+    {
+      "id": "ingredient-baking-powder",
+      "component_id": "component-chicken-wings",
+      "row_order": 3,
+      "first_use_step": 4,
+      "display": "2 tbsp aluminum-free baking powder",
+      "quantity": {
+        "value": 2,
+        "min": null,
+        "max": null,
+        "unit": "tbsp",
+        "display": "2 tbsp",
+        "qualifier": null
+      },
+      "name": "aluminum-free baking powder",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-wing-salt",
+      "component_id": "component-chicken-wings",
+      "row_order": 4,
+      "first_use_step": 4,
+      "display": "2½ tsp kosher salt",
+      "quantity": {
+        "value": 2.5,
+        "min": null,
+        "max": null,
+        "unit": "tsp",
+        "display": "2½ tsp",
+        "qualifier": null
+      },
+      "name": "kosher salt",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-garlic-powder-wing",
+      "component_id": "component-chicken-wings",
+      "row_order": 5,
+      "first_use_step": 4,
+      "display": "2 tsp garlic powder",
+      "quantity": {
+        "value": 2,
+        "min": null,
+        "max": null,
+        "unit": "tsp",
+        "display": "2 tsp",
+        "qualifier": null
+      },
+      "name": "garlic powder",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-onion-powder-wing",
+      "component_id": "component-chicken-wings",
+      "row_order": 6,
+      "first_use_step": 4,
+      "display": "1½ tsp onion powder",
+      "quantity": {
+        "value": 1.5,
+        "min": null,
+        "max": null,
+        "unit": "tsp",
+        "display": "1½ tsp",
+        "qualifier": null
+      },
+      "name": "onion powder",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-pepper-wing",
+      "component_id": "component-chicken-wings",
+      "row_order": 7,
+      "first_use_step": 4,
+      "display": "1 tsp black pepper",
+      "quantity": {
+        "value": 1,
+        "min": null,
+        "max": null,
+        "unit": "tsp",
+        "display": "1 tsp",
+        "qualifier": null
+      },
+      "name": "black pepper",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-sriracha",
+      "component_id": "component-sriracha-sauce",
+      "row_order": 8,
+      "first_use_step": 11,
+      "display": "½ cup Sriracha",
+      "quantity": {
+        "value": 0.5,
+        "min": null,
+        "max": null,
+        "unit": "cup",
+        "display": "½ cup",
+        "qualifier": null
+      },
+      "name": "Sriracha",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-sriracha-butter",
+      "component_id": "component-sriracha-sauce",
+      "row_order": 9,
+      "first_use_step": 11,
+      "display": "4 tbsp unsalted butter",
+      "quantity": {
+        "value": 4,
+        "min": null,
+        "max": null,
+        "unit": "tbsp",
+        "display": "4 tbsp",
+        "qualifier": null
+      },
+      "name": "unsalted butter",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-rice-vinegar",
+      "component_id": "component-sriracha-sauce",
+      "row_order": 10,
+      "first_use_step": 11,
+      "display": "1 tbsp rice vinegar",
+      "quantity": {
+        "value": 1,
+        "min": null,
+        "max": null,
+        "unit": "tbsp",
+        "display": "1 tbsp",
+        "qualifier": null
+      },
+      "name": "rice vinegar",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-sriracha-garlic",
+      "component_id": "component-sriracha-sauce",
+      "row_order": 11,
+      "first_use_step": 11,
+      "display": "½ tsp garlic powder",
+      "quantity": {
+        "value": 0.5,
+        "min": null,
+        "max": null,
+        "unit": "tsp",
+        "display": "½ tsp",
+        "qualifier": null
+      },
+      "name": "garlic powder",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-honey",
+      "component_id": "component-honey-glaze",
+      "row_order": 12,
+      "first_use_step": 12,
+      "display": "⅓ cup honey",
+      "quantity": {
+        "value": 0.333333,
+        "min": null,
+        "max": null,
+        "unit": "cup",
+        "display": "⅓ cup",
+        "qualifier": null
+      },
+      "name": "honey",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-tamari",
+      "component_id": "component-honey-glaze",
+      "row_order": 13,
+      "first_use_step": 12,
+      "display": "¼ cup soy sauce or gluten-free tamari",
+      "quantity": {
+        "value": 0.25,
+        "min": null,
+        "max": null,
+        "unit": "cup",
+        "display": "¼ cup",
+        "qualifier": "soy sauce or gluten-free tamari"
+      },
+      "name": "soy sauce or gluten-free tamari",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-honey-butter",
+      "component_id": "component-honey-glaze",
+      "row_order": 14,
+      "first_use_step": 12,
+      "display": "2 tbsp unsalted butter",
+      "quantity": {
+        "value": 2,
+        "min": null,
+        "max": null,
+        "unit": "tbsp",
+        "display": "2 tbsp",
+        "qualifier": null
+      },
+      "name": "unsalted butter",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-glaze-vinegar",
+      "component_id": "component-honey-glaze",
+      "row_order": 15,
+      "first_use_step": 12,
+      "display": "1 tbsp rice vinegar or apple cider vinegar",
+      "quantity": {
+        "value": 1,
+        "min": null,
+        "max": null,
+        "unit": "tbsp",
+        "display": "1 tbsp",
+        "qualifier": "rice vinegar or apple cider vinegar"
+      },
+      "name": "rice vinegar or apple cider vinegar",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-glaze-garlic",
+      "component_id": "component-honey-glaze",
+      "row_order": 16,
+      "first_use_step": 12,
+      "display": "1 tsp garlic powder",
+      "quantity": {
+        "value": 1,
+        "min": null,
+        "max": null,
+        "unit": "tsp",
+        "display": "1 tsp",
+        "qualifier": null
+      },
+      "name": "garlic powder",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-glaze-onion",
+      "component_id": "component-honey-glaze",
+      "row_order": 17,
+      "first_use_step": 12,
+      "display": "½ tsp onion powder",
+      "quantity": {
+        "value": 0.5,
+        "min": null,
+        "max": null,
+        "unit": "tsp",
+        "display": "½ tsp",
+        "qualifier": null
+      },
+      "name": "onion powder",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-cornstarch",
+      "component_id": "component-honey-glaze",
+      "row_order": 18,
+      "first_use_step": 13,
+      "display": "1 tsp cornstarch",
+      "quantity": {
+        "value": 1,
+        "min": null,
+        "max": null,
+        "unit": "tsp",
+        "display": "1 tsp",
+        "qualifier": null
+      },
+      "name": "cornstarch",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-water",
+      "component_id": "component-honey-glaze",
+      "row_order": 19,
+      "first_use_step": 13,
+      "display": "1 tbsp water",
+      "quantity": {
+        "value": 1,
+        "min": null,
+        "max": null,
+        "unit": "tbsp",
+        "display": "1 tbsp",
+        "qualifier": null
+      },
+      "name": "water",
+      "prep": null,
+      "optional": false
+    }
+  ],
+  "steps": [
+    {
+      "id": "step-1",
+      "order": 1,
+      "text": "Heat the oven to 425°F convection or 450°F conventional.",
+      "card_label": "Preheat oven",
+      "card_detail": "425°F convection or 450°F conventional",
+      "inputs": [],
+      "outputs": []
+    },
+    {
+      "id": "step-2",
+      "order": 2,
+      "text": "Line two sheet pans with foil or parchment and lightly grease them with neutral oil.",
+      "card_label": "Line and grease pans",
+      "card_detail": "2 sheet pans; lightly grease with neutral oil",
+      "inputs": [
+        { "type": "ingredient", "id": "ingredient-oil" }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "step-3",
+      "order": 3,
+      "text": "Pat the chicken wings very dry with paper towels.",
+      "card_label": "Dry the wings",
+      "card_detail": "very dry",
+      "inputs": [
+        { "type": "ingredient", "id": "ingredient-wings" }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "step-4",
+      "order": 4,
+      "text": "In a large bowl, combine the baking powder, kosher salt, garlic powder, onion powder, and black pepper.",
+      "card_label": "Combine dry seasoning",
+      "card_detail": "combine in a large bowl",
+      "inputs": [
+        { "type": "ingredient", "id": "ingredient-baking-powder" },
+        { "type": "ingredient", "id": "ingredient-wing-salt" },
+        { "type": "ingredient", "id": "ingredient-garlic-powder-wing" },
+        { "type": "ingredient", "id": "ingredient-onion-powder-wing" },
+        { "type": "ingredient", "id": "ingredient-pepper-wing" }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "step-5",
+      "order": 5,
+      "text": "Add the wings and toss until evenly coated.",
+      "card_label": "Coat wings",
+      "card_detail": "until evenly coated",
+      "inputs": [
+        { "type": "ingredient", "id": "ingredient-wings" },
+        { "type": "ingredient", "id": "ingredient-baking-powder" },
+        { "type": "ingredient", "id": "ingredient-wing-salt" },
+        { "type": "ingredient", "id": "ingredient-garlic-powder-wing" },
+        { "type": "ingredient", "id": "ingredient-onion-powder-wing" },
+        { "type": "ingredient", "id": "ingredient-pepper-wing" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-chicken-wings" }
+      ]
+    },
+    {
+      "id": "step-6",
+      "order": 6,
+      "text": "Arrange the wings directly on the prepared sheet pans in a single layer, leaving some space between them.",
+      "card_label": "Arrange wings",
+      "card_detail": "single layer; leave space between wings",
+      "inputs": [
+        { "type": "component", "id": "component-chicken-wings" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-chicken-wings" }
+      ]
+    },
+    {
+      "id": "step-7",
+      "order": 7,
+      "text": "Bake for 20 minutes.",
+      "card_label": "Bake wings",
+      "card_detail": "20 minutes",
+      "inputs": [
+        { "type": "component", "id": "component-chicken-wings" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-chicken-wings" }
+      ]
+    },
+    {
+      "id": "step-8",
+      "order": 8,
+      "text": "Flip all of the wings and return them to the oven.",
+      "card_label": "Flip wings",
+      "card_detail": "flip all wings; return to oven",
+      "inputs": [
+        { "type": "component", "id": "component-chicken-wings" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-chicken-wings" }
+      ]
+    },
+    {
+      "id": "step-9",
+      "order": 9,
+      "text": "Bake for another 20–25 minutes, until deeply browned and crisp. For the best texture, aim for an internal temperature around 180–190°F.",
+      "card_label": "Bake until crisp",
+      "card_detail": "another 20–25 minutes; deeply browned and crisp; 180–190°F internal",
+      "inputs": [
+        { "type": "component", "id": "component-chicken-wings" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-chicken-wings" }
+      ]
+    },
+    {
+      "id": "step-10",
+      "order": 10,
+      "text": "If the wings need more crisping, bake for another 5–8 minutes before adding any sauce.",
+      "card_label": "Crisp further if needed",
+      "card_detail": "conditional: another 5–8 minutes before saucing",
+      "inputs": [
+        { "type": "component", "id": "component-chicken-wings" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-chicken-wings" }
+      ]
+    },
+    {
+      "id": "step-11",
+      "order": 11,
+      "text": "While the wings cook, make the Sriracha sauce. Combine the Sriracha, butter, rice vinegar, and garlic powder in a small saucepan. Heat gently until the butter melts, then whisk until smooth.",
+      "card_label": "Make Sriracha-butter sauce",
+      "card_detail": "heat gently until butter melts; whisk until smooth",
+      "inputs": [
+        { "type": "ingredient", "id": "ingredient-sriracha" },
+        { "type": "ingredient", "id": "ingredient-sriracha-butter" },
+        { "type": "ingredient", "id": "ingredient-rice-vinegar" },
+        { "type": "ingredient", "id": "ingredient-sriracha-garlic" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-sriracha-sauce" }
+      ]
+    },
+    {
+      "id": "step-12",
+      "order": 12,
+      "text": "Make the honey-garlic glaze. Combine the honey, tamari, butter, vinegar, garlic powder, and onion powder in a small saucepan. Bring to a gentle simmer and cook for 2–3 minutes.",
+      "card_label": "Simmer honey-garlic glaze",
+      "card_detail": "gentle simmer for 2–3 minutes",
+      "inputs": [
+        { "type": "ingredient", "id": "ingredient-honey" },
+        { "type": "ingredient", "id": "ingredient-tamari" },
+        { "type": "ingredient", "id": "ingredient-honey-butter" },
+        { "type": "ingredient", "id": "ingredient-glaze-vinegar" },
+        { "type": "ingredient", "id": "ingredient-glaze-garlic" },
+        { "type": "ingredient", "id": "ingredient-glaze-onion" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-honey-glaze" }
+      ]
+    },
+    {
+      "id": "step-13",
+      "order": 13,
+      "text": "Mix the cornstarch and water together until smooth. Whisk the slurry into the honey mixture and simmer for 30–60 seconds, until slightly thickened and glossy.",
+      "card_label": "Thicken honey glaze",
+      "card_detail": "simmer 30–60 seconds; slightly thickened and glossy",
+      "inputs": [
+        { "type": "ingredient", "id": "ingredient-cornstarch" },
+        { "type": "ingredient", "id": "ingredient-water" },
+        { "type": "component", "id": "component-honey-glaze" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-honey-glaze" }
+      ]
+    },
+    {
+      "id": "step-14",
+      "order": 14,
+      "text": "Divide the cooked wings approximately in half.",
+      "card_label": "Divide cooked wings",
+      "card_detail": "approximately in half",
+      "inputs": [
+        { "type": "component", "id": "component-chicken-wings" }
+      ],
+      "outputs": []
+    },
+    {
+      "id": "step-15",
+      "order": 15,
+      "text": "Toss one half with the Sriracha-butter sauce.",
+      "card_label": "Toss half with Sriracha sauce",
+      "card_detail": "one half of cooked wings",
+      "inputs": [
+        { "type": "component", "id": "component-chicken-wings" },
+        { "type": "component", "id": "component-sriracha-sauce" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-sriracha-sauce" }
+      ]
+    },
+    {
+      "id": "step-16",
+      "order": 16,
+      "text": "Toss the other half with the honey-garlic glaze.",
+      "card_label": "Toss half with honey glaze",
+      "card_detail": "the other half of cooked wings",
+      "inputs": [
+        { "type": "component", "id": "component-chicken-wings" },
+        { "type": "component", "id": "component-honey-glaze" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-honey-glaze" }
+      ]
+    },
+    {
+      "id": "step-17",
+      "order": 17,
+      "text": "For a more set, sticky coating, return the sauced wings to the oven for 3–5 minutes. Watch the honey-glazed wings carefully because the sugar can burn.",
+      "card_label": "Set coating if desired",
+      "card_detail": "optional: return to oven 3–5 minutes; honey glaze can burn",
+      "inputs": [
+        { "type": "component", "id": "component-sriracha-sauce" },
+        { "type": "component", "id": "component-honey-glaze" }
+      ],
+      "outputs": []
+    }
+  ],
+  "notes": [
+    {
+      "id": "note-1",
+      "text": "The baking powder helps crisp the skin; do not substitute baking soda.",
+      "related_ids": ["ingredient-baking-powder"]
+    },
+    {
+      "id": "note-2",
+      "text": "Sriracha usually contains a small amount of sugar, so this version is not technically sugar-free, although it is much less sweet than the honey-glazed batch.",
+      "related_ids": ["ingredient-sriracha"]
+    }
+  ],
+  "validation": {
+    "needs_review": true,
+    "issues": [
+      "The source does not specify servings.",
+      "The recipe diverges into two finishing branches after step 14; the current ordered-step contract represents the Sriracha and honey branches as consecutive steps rather than explicit parallel branch metadata."
+    ]
+  }
+}
