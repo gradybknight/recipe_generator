@@ -205,10 +205,6 @@ function MoonIcon() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 15.85A7.75 7.75 0 0 1 8.15 4.5 8 8 0 1 0 19.5 15.85Z" /></svg>
 }
 
-function TourIcon() {
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.25" /><path d="m14.9 9.1-1.65 4.15-4.15 1.65 1.65-4.15z" /></svg>
-}
-
 function HomeIcon() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 11.25 7.5-6 7.5 6v8.25a1 1 0 0 1-1 1h-4v-5.25h-5v5.25h-4a1 1 0 0 1-1-1z" /></svg>
 }
@@ -421,9 +417,9 @@ function App() {
           {recipe && <div className="header-actions">
             <button type="button" className="header-icon-button" onClick={() => setShowRecipeChooser((open) => !open)} aria-label="Choose a new recipe" title="Choose a new recipe"><RecipeIcon /></button>
             <button type="button" className="header-icon-button" onClick={() => setDarkMode((enabled) => !enabled)} aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'} title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}>{darkMode ? <SunIcon /> : <MoonIcon />}</button>
-            <button type="button" className="header-icon-button" onClick={() => setShowTour(true)} aria-label="Start matrix view tour" title="Start matrix view tour"><TourIcon /></button>
             <button type="button" className="header-icon-button" onClick={handleHome} aria-label="Return home" title="Return home"><HomeIcon /></button>
           </div>}
+          {recipe && <button type="button" className="tour-launch" onClick={() => setShowTour(true)}>How this works</button>}
           {!recipe && <div className="empty-header-tools"><button type="button" className="theme-toggle" onClick={() => setDarkMode((enabled) => !enabled)}>{darkMode ? 'Light mode' : 'Dark mode'}</button></div>}
         </header>
 
