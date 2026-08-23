@@ -193,9 +193,42 @@ function ExampleRecipePicker({ examples, onSelect }) {
   )
 }
 
+function RecipeIcon() {
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.75h7.2L18 8.1v12.15H6.5z" /><path d="M13.5 3.75V8.5H18M12.25 12v5.25M9.625 14.625h5.25" /></svg>
+}
+
+function SunIcon() {
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" /><path d="M12 2.75v2M12 19.25v2M21.25 12h-2M4.75 12h-2M18.54 5.46l-1.42 1.42M6.88 17.12l-1.42 1.42M18.54 18.54l-1.42-1.42M6.88 6.88 5.46 5.46" /></svg>
+}
+
+function MoonIcon() {
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 15.85A7.75 7.75 0 0 1 8.15 4.5 8 8 0 1 0 19.5 15.85Z" /></svg>
+}
+
+function TourIcon() {
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.25" /><path d="m14.9 9.1-1.65 4.15-4.15 1.65 1.65-4.15z" /></svg>
+}
+
+function HomeIcon() {
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 11.25 7.5-6 7.5 6v8.25a1 1 0 0 1-1 1h-4v-5.25h-5v5.25h-4a1 1 0 0 1-1-1z" /></svg>
+}
+
 function EmptyRecipe({ onFile, onExample, examples, error }) {
   return (
     <section className="empty-panel">
+      <div className="empty-recipes-panel">
+        <div className="section-kicker">Bundled recipes</div>
+        <h2>Choose a recipe</h2>
+        <p>Start with one of the included examples.</p>
+        <div className="example-list">
+          {examples.map(({ path, recipe }) => (
+            <button type="button" className="example-list-item" onClick={() => onExample(path)} key={path}>
+              <span>{recipe.title}</span>
+              <b>↗</b>
+            </button>
+          ))}
+        </div>
+      </div>
       <div className="upload-target">
         <div className="target-mark" aria-hidden="true"><span /></div>
         <div className="section-kicker">Recipe card renderer</div>
@@ -205,10 +238,68 @@ function EmptyRecipe({ onFile, onExample, examples, error }) {
           <input type="file" accept="application/json,.json" onChange={onFile} />
           <span>Choose JSON file</span>
         </label>
-        <ExampleRecipePicker examples={examples} onSelect={onExample} />
         {error && <div className="import-error" role="alert">{error}</div>}
       </div>
     </section>
+  )
+}
+
+const tourSteps = [
+  {
+    kicker: '01 / Ingredients',
+    title: 'Start with the ingredient column',
+    text: 'Every row is an ingredient, grouped by the component it belongs to. Quantities stay visible on the left as you work across the recipe.',
+    visual: <div className="tour-visual tour-ingredients"><span>2 cups</span><strong>chickpeas</strong><span>1 tbsp</span><strong>olive oil</strong><span>½ tsp</span><strong>cumin</strong></div>,
+  },
+  {
+    kicker: '02 / Process',
+    title: 'Read the recipe from left to right',
+    text: 'Each numbered card is an operation. Its position shows which ingredients it uses, and the card label keeps the next action easy to spot.',
+    visual: <div className="tour-visual tour-process"><span className="tour-ingredient-line" /><div><small>01</small><strong>Season</strong></div><i>→</i><div><small>02</small><strong>Roast</strong></div></div>,
+  },
+  {
+    kicker: '03 / Progress',
+    title: 'Click an operation when it is done',
+    text: 'Completed ingredients fold into a checked summary, keeping the active work in view. Use the completed column to undo a step or show everything again.',
+    visual: <div className="tour-visual tour-progress"><div className="tour-completed">✓ <strong>Prepared ingredients</strong></div><div className="tour-active"><small>03</small><strong>Finish</strong><button type="button" tabIndex="-1">complete</button></div></div>,
+  },
+]
+
+function MatrixTour({ onClose }) {
+  const [step, setStep] = useState(0)
+  const current = tourSteps[step]
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') onClose()
+      if (event.key === 'ArrowRight' && step < tourSteps.length - 1) setStep((currentStep) => currentStep + 1)
+      if (event.key === 'ArrowLeft' && step > 0) setStep((currentStep) => currentStep - 1)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [onClose, step])
+
+  return (
+    <div className="tour-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+      <section className="tour-dialog" role="dialog" aria-modal="true" aria-labelledby="tour-title">
+        <button type="button" className="tour-close" onClick={onClose} aria-label="Close tour">×</button>
+        <div className="section-kicker">{current.kicker}</div>
+        <h2 id="tour-title">{current.title}</h2>
+        <p>{current.text}</p>
+        {current.visual}
+        <div className="tour-footer">
+          <div className="tour-dots" aria-label={`Tour step ${step + 1} of ${tourSteps.length}`}>
+            {tourSteps.map((item, index) => <span className={index === step ? 'active' : ''} key={item.kicker} />)}
+          </div>
+          <div className="tour-actions">
+            {step > 0 && <button type="button" className="tour-secondary" onClick={() => setStep((currentStep) => currentStep - 1)}>Back</button>}
+            <button type="button" className="tour-primary" onClick={() => step === tourSteps.length - 1 ? onClose() : setStep((currentStep) => currentStep + 1)}>
+              {step === tourSteps.length - 1 ? 'Done' : 'Next'}
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
   )
 }
 
@@ -262,6 +353,8 @@ function App() {
   const [importError, setImportError] = useState('')
   const [darkMode, setDarkMode] = useState(false)
   const [activeView, setActiveView] = useState('matrix')
+  const [showTour, setShowTour] = useState(false)
+  const [showRecipeChooser, setShowRecipeChooser] = useState(false)
 
   useEffect(() => {
     document.documentElement.dataset.theme = darkMode ? 'dark' : 'light'
@@ -279,6 +372,7 @@ function App() {
       setCompletedThrough(0)
       setLoadedFile(file.name)
       setImportError('')
+      setShowRecipeChooser(false)
     } catch (error) {
       setImportError(error.message || 'Could not read that recipe JSON file.')
     }
@@ -291,43 +385,59 @@ function App() {
     setCompletedThrough(0)
     setLoadedFile(selected.path.replace('../', ''))
     setImportError('')
+    setShowRecipeChooser(false)
+  }
+
+  const handleHome = () => {
+    setRecipe(null)
+    setCompletedThrough(0)
+    setLoadedFile('')
+    setImportError('')
+    setActiveView('matrix')
+    setShowRecipeChooser(false)
+    setShowTour(false)
   }
 
   return (
-    <main className="app-shell">
+    <main className={`app-shell ${recipe ? 'recipe-loaded' : ''}`}>
       <div className="top-rule" />
-      <header className="recipe-header">
-        <div className="eyebrow"><span className="eyebrow-mark" /> Recipe matrix{recipe && ` / ${recipe.schema_version}`}</div>
-        <h1>{recipe ? recipe.title : 'Recipe card'}</h1>
-        {recipe && <div className="header-meta">
-          <span><strong>Yield</strong> {recipe.servings.display}</span>
-          <span className="meta-divider" />
-          <span><strong>Read</strong> left to right</span>
-        </div>}
-        {recipe && <div className="recipe-tools">
-          <label className="file-picker">
-            <input type="file" accept="application/json,.json" onChange={handleFile} />
-            <span>Load recipe JSON</span>
-          </label>
-          <ExampleRecipePicker examples={exampleRecipes} onSelect={handleExample} />
-          <button type="button" className="theme-toggle" onClick={() => setDarkMode((enabled) => !enabled)}>
-            {darkMode ? 'Light mode' : 'Dark mode'}
-          </button>
-          <span className="loaded-file">{loadedFile}</span>
-        </div>}
-        {!recipe && <div className="empty-header-tools"><button type="button" className="theme-toggle" onClick={() => setDarkMode((enabled) => !enabled)}>{darkMode ? 'Light mode' : 'Dark mode'}</button></div>}
-      </header>
+      <div className={`recipe-chrome ${recipe ? 'has-recipe' : ''} ${showRecipeChooser ? 'show-recipe-chooser' : ''}`}>
+        <header className="recipe-header">
+          {!recipe && <div className="eyebrow"><span className="eyebrow-mark" /> Recipe matrix</div>}
+        {recipe && <h1>{recipe.title}</h1>}
+          {recipe && <div className="header-meta">
+            <span><strong>Yield</strong> {recipe.servings.display}</span>
+            <span className="meta-divider" />
+            <span><strong>Read</strong> left to right</span>
+          </div>}
+          {recipe && <div className="recipe-tools">
+            <label className="file-picker">
+              <input type="file" accept="application/json,.json" onChange={handleFile} />
+              <span>Load recipe JSON</span>
+            </label>
+            <ExampleRecipePicker examples={exampleRecipes} onSelect={handleExample} />
+            <span className="loaded-file">{loadedFile}</span>
+          </div>}
+          {recipe && <div className="header-actions">
+            <button type="button" className="header-icon-button" onClick={() => setShowRecipeChooser((open) => !open)} aria-label="Choose a new recipe" title="Choose a new recipe"><RecipeIcon /></button>
+            <button type="button" className="header-icon-button" onClick={() => setDarkMode((enabled) => !enabled)} aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'} title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}>{darkMode ? <SunIcon /> : <MoonIcon />}</button>
+            <button type="button" className="header-icon-button" onClick={() => setShowTour(true)} aria-label="Start matrix view tour" title="Start matrix view tour"><TourIcon /></button>
+            <button type="button" className="header-icon-button" onClick={handleHome} aria-label="Return home" title="Return home"><HomeIcon /></button>
+          </div>}
+          {!recipe && <div className="empty-header-tools"><button type="button" className="theme-toggle" onClick={() => setDarkMode((enabled) => !enabled)}>{darkMode ? 'Light mode' : 'Dark mode'}</button></div>}
+        </header>
+
+        {recipe && <nav className="view-tabs" aria-label="Recipe views">
+          <button type="button" className={activeView === 'matrix' ? 'active' : ''} aria-selected={activeView === 'matrix'} onClick={() => setActiveView('matrix')}>Matrix view</button>
+          <button type="button" className={activeView === 'traditional' ? 'active' : ''} aria-selected={activeView === 'traditional'} onClick={() => setActiveView('traditional')}>Traditional recipe</button>
+        </nav>}
+      </div>
 
       {!recipe && <EmptyRecipe onFile={handleFile} onExample={handleExample} examples={exampleRecipes} error={importError} />}
-      {recipe && <nav className="view-tabs" aria-label="Recipe views">
-        <button type="button" className={activeView === 'matrix' ? 'active' : ''} aria-selected={activeView === 'matrix'} onClick={() => setActiveView('matrix')}>Matrix view</button>
-        <button type="button" className={activeView === 'traditional' ? 'active' : ''} aria-selected={activeView === 'traditional'} onClick={() => setActiveView('traditional')}>Traditional recipe</button>
-      </nav>}
       {recipe && activeView === 'matrix' && <section className="matrix-panel">
         <div className="matrix-caption">
           <div>
             <div className="section-kicker">Inputs → process → result</div>
-            <h2>{recipe.title}</h2>
           </div>
           <div className="matrix-key"><span className="key-line" /> Ingredient rows merge into each operation</div>
         </div>
@@ -339,6 +449,7 @@ function App() {
       {recipe && <Notes recipe={recipe} />}
       {recipe?.validation.needs_review && <div className="review-warning">Review needed: {recipe.validation.issues.join(' ')}</div>}
       <footer><span>Generated from structured recipe data</span><span>Kitchen / 01</span></footer>
+      {showTour && <MatrixTour onClose={() => setShowTour(false)} />}
     </main>
   )
 }
