@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "title": "Korean Fire Chicken",
+  "servings": { "display": "Not specified" },
+  "components": [
+    { "id": "component-main", "name": "Main" }
+  ],
+  "ingredients": [
+    { "id": "ingredient-chicken", "component_id": "component-main", "row_order": 1, "first_use_step": 1, "display": "1,360 g boneless, skinless chicken thighs", "quantity": { "value": 1360, "min": null, "max": null, "unit": "g", "display": "1,360 g", "qualifier": null }, "name": "boneless, skinless chicken thighs", "prep": null, "optional": false },
+    { "id": "ingredient-gochujang", "component_id": "component-main", "row_order": 2, "first_use_step": 2, "display": "85 g gochujang", "quantity": { "value": 85, "min": null, "max": null, "unit": "g", "display": "85 g", "qualifier": null }, "name": "gochujang", "prep": null, "optional": false },
+    { "id": "ingredient-vinegar", "component_id": "component-main", "row_order": 3, "first_use_step": 2, "display": "60 g unseasoned rice vinegar", "quantity": { "value": 60, "min": null, "max": null, "unit": "g", "display": "60 g", "qualifier": null }, "name": "unseasoned rice vinegar", "prep": null, "optional": false },
+    { "id": "ingredient-tamari", "component_id": "component-main", "row_order": 4, "first_use_step": 2, "display": "60 g gluten-free tamari", "quantity": { "value": 60, "min": null, "max": null, "unit": "g", "display": "60 g", "qualifier": null }, "name": "gluten-free tamari", "prep": null, "optional": false },
+    { "id": "ingredient-sesame-oil", "component_id": "component-main", "row_order": 5, "first_use_step": 2, "display": "2 g toasted sesame oil", "quantity": { "value": 2, "min": null, "max": null, "unit": "g", "display": "2 g", "qualifier": null }, "name": "toasted sesame oil", "prep": null, "optional": false },
+    { "id": "ingredient-scallions", "component_id": "component-main", "row_order": 6, "first_use_step": 11, "display": "1 bunch scallions, cut into 1-inch pieces", "quantity": { "value": 1, "min": null, "max": null, "unit": "bunch", "display": "1 bunch", "qualifier": null }, "name": "scallions", "prep": "cut into 1-inch pieces", "optional": false }
+  ],
+  "steps": [
+    { "id": "step-1", "order": 1, "text": "Trim excess fat from the chicken thighs and cut each thigh crosswise into about 3 large pieces.", "card_label": "Trim and cut chicken", "card_detail": "about 3 large pieces per thigh", "inputs": [{ "type": "ingredient", "id": "ingredient-chicken" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-2", "order": 2, "text": "Whisk the gochujang, rice vinegar, tamari, and sesame oil together in a large broiler-safe skillet.", "card_label": "Whisk marinade in skillet", "card_detail": "large broiler-safe skillet", "inputs": [{ "type": "ingredient", "id": "ingredient-gochujang" }, { "type": "ingredient", "id": "ingredient-vinegar" }, { "type": "ingredient", "id": "ingredient-tamari" }, { "type": "ingredient", "id": "ingredient-sesame-oil" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-3", "order": 3, "text": "Add the chicken and toss until evenly coated.", "card_label": "Coat chicken", "card_detail": "evenly coated", "inputs": [{ "type": "component", "id": "component-main" }, { "type": "ingredient", "id": "ingredient-chicken" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-4", "order": 4, "text": "Let the chicken marinate at room temperature for 15–20 minutes.", "card_label": "Marinate chicken", "card_detail": "room temperature · 15–20 min", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-5", "order": 5, "text": "Position an oven rack about 6 inches below the broiler and preheat the broiler on high.", "card_label": "Preheat broiler", "card_detail": "rack 6 in below · high", "inputs": [], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-6", "order": 6, "text": "Arrange the chicken in an even layer and broil for 10–12 minutes.", "card_label": "Broil chicken", "card_detail": "even layer · 10–12 min", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-7", "order": 7, "text": "Turn and stir the chicken, then broil for another 8–12 minutes.", "card_label": "Turn and broil again", "card_detail": "another 8–12 min", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-8", "order": 8, "text": "Begin checking at about 20 minutes total and remove the chicken when the edges are deeply browned and lightly charred and the thickest pieces are at least 165°F.", "card_label": "Check doneness", "card_detail": "about 20 min total · ≥165°F · browned and lightly charred", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-9", "order": 9, "text": "Transfer the skillet to the stovetop and bring the liquid to a vigorous simmer over medium-high heat.", "card_label": "Simmer sauce", "card_detail": "medium-high · vigorous simmer", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-10", "order": 10, "text": "Cook for 3–5 minutes, stirring frequently, until the sauce reduces to a thick glaze that coats the chicken.", "card_label": "Reduce to thick glaze", "card_detail": "3–5 min · coats chicken", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-11", "order": 11, "text": "Remove from the heat and stir in the scallions.", "card_label": "Stir in scallions", "card_detail": "off heat", "inputs": [{ "type": "component", "id": "component-main" }, { "type": "ingredient", "id": "ingredient-scallions" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-12", "order": 12, "text": "Serve immediately.", "card_label": "Serve immediately", "card_detail": null, "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] }
+  ],
+  "notes": [
+    { "id": "note-1", "text": "85 g gochujang gives a moderately spicy version. Increase to about 125 g for a hotter version.", "related_ids": ["ingredient-gochujang"] },
+    { "id": "note-2", "text": "Chicken thighs can comfortably cook into the 175–185°F range without drying out.", "related_ids": ["ingredient-chicken"] },
+    { "id": "note-3", "text": "Go by browning and internal temperature rather than strictly by time; broilers vary considerably.", "related_ids": ["step-6", "step-7", "step-8"] },
+    { "id": "note-4", "text": "Use gluten-free gochujang and tamari to keep the recipe gluten-free.", "related_ids": ["ingredient-gochujang", "ingredient-tamari"] },
+    { "id": "note-5", "text": "Good sides include steamed rice, roasted broccoli, cucumber salad, or cabbage slaw.", "related_ids": [] }
+  ],
+  "validation": { "needs_review": true, "issues": ["The source did not specify a serving count."] }
+}
