@@ -20,7 +20,7 @@ Convert the supplied standard-format recipe into the JSON contract in [schema.md
 9. Preserve notes separately. A note may reference an ingredient or step, but do not silently convert advice into an instruction.
 10. Set `validation.needs_review` to `true` whenever parsing required an assumption, a relationship is ambiguous, or the source contains an unsupported structure. Otherwise set it to `false`.
 
-Every step with a temperature, time, cooking mode, quantity, conditional, or doneness/safety cue must include a concise `card_detail` that preserves that critical information for compact visual rendering. Use `null` only when the step has no such detail. Never infer a missing temperature or time.
+Every step with a temperature, time, cooking mode, quantity, conditional, or doneness/safety cue must include a concise `card_detail` that preserves that critical information for compact visual rendering. Use `null` only when the step has no such detail. Never infer a missing temperature or time. During validation, compare `text` against `card_detail`; if a temperature, time, mode, quantity, or safety/doneness cue appears in `text` but is absent from `card_detail`, set `validation.needs_review` to `true` and report the omission in `validation.issues`.
 
 ## Visual row ordering
 

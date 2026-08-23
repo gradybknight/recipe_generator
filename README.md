@@ -1,0 +1,55 @@
+# Recipe Card Generator
+
+A React/Vite single-page app that turns structured recipe JSON into a process-oriented recipe card. The matrix view lays ingredients out as rows and cooking steps as columns, showing how ingredients flow into each operation. A traditional view presents ingredients and instructions in separate scrolling panels.
+
+## Features
+
+- Import a `recipe.json` file from the browser
+- Matrix and traditional recipe views
+- Step completion and reversible collapsed progress state
+- Optional ingredients placed in the recipe flow
+- Light and dark themes
+- Sticky ingredient column while scrolling horizontally
+- No backend or runtime LLM required
+
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+Open the local URL shown by Vite, usually `http://localhost:5173`.
+
+Build and preview the production bundle:
+
+```bash
+npm run build
+npm run preview
+```
+
+## Recipe JSON
+
+The renderer consumes the contract documented in [`skills/recipe-card-structurer/references/schema.md`](skills/recipe-card-structurer/references/schema.md). The structuring instructions for converting plain-text recipes are in [`skills/recipe-card-structurer/SKILL.md`](skills/recipe-card-structurer/SKILL.md).
+
+Example recipe artifacts are in [`example_recipes/`](example_recipes/). The app starts with an upload target; choose a compatible JSON file to render it.
+
+## Deploy
+
+The app is hosted from S3 behind CloudFront at [https://recipe.gradyknight.com](https://recipe.gradyknight.com).
+
+```bash
+./scripts/deploy.sh
+```
+
+The deployment script builds the app, syncs `dist/` to the recipe S3 bucket, and requests a CloudFront cache invalidation. It uses the default recipe bucket and distribution, or accepts an alternate bucket and region:
+
+```bash
+./scripts/deploy.sh <bucket-name> <aws-region>
+```
+
+Override the CloudFront distribution when needed:
+
+```bash
+DISTRIBUTION_ID=<distribution-id> ./scripts/deploy.sh
+```

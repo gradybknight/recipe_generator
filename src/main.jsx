@@ -195,12 +195,56 @@ function EmptyRecipe({ onFile, error }) {
   )
 }
 
+function TraditionalRecipe({ recipe }) {
+  const ingredients = [...recipe.ingredients].sort((a, b) => a.row_order - b.row_order)
+  return (
+    <section className="traditional-view">
+      <div className="traditional-panel">
+        <div className="traditional-panel-heading">
+          <div className="section-kicker">Mise en place</div>
+          <h2>Ingredients</h2>
+        </div>
+        {recipe.components.map((component) => (
+          <section className="traditional-group" key={component.id}>
+            <h3>{component.name}</h3>
+            {ingredients.filter((item) => item.component_id === component.id).map((item) => (
+              <div className="traditional-ingredient" key={item.id}>
+                <span>{item.display}</span>
+                {item.optional && <em>optional</em>}
+              </div>
+            ))}
+          </section>
+        ))}
+      </div>
+      <div className="traditional-panel">
+        <div className="traditional-panel-heading">
+          <div className="section-kicker">Method</div>
+          <h2>Steps</h2>
+        </div>
+        <div className="traditional-steps">
+          {recipe.steps.map((step) => (
+            <article className="traditional-step" key={step.id}>
+              <div className="traditional-step-number">{String(step.order).padStart(2, '0')}</div>
+              <div>
+                <h3>{step.card_label}</h3>
+                <p>{step.text}</p>
+                {step.card_detail && <small>{step.card_detail}</small>}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function App() {
   const [recipe, setRecipe] = useState(null)
   const [completedThrough, setCompletedThrough] = useState(0)
   const [loadedFile, setLoadedFile] = useState('')
   const [importError, setImportError] = useState('')
   const [darkMode, setDarkMode] = useState(false)
+  const [activeView, setActiveView] = useState('matrix')
 
   useEffect(() => {
     document.documentElement.dataset.theme = darkMode ? 'dark' : 'light'
@@ -248,7 +292,11 @@ function App() {
       </header>
 
       {!recipe && <EmptyRecipe onFile={handleFile} error={importError} />}
-      {recipe && <section className="matrix-panel">
+      {recipe && <nav className="view-tabs" aria-label="Recipe views">
+        <button type="button" className={activeView === 'matrix' ? 'active' : ''} aria-selected={activeView === 'matrix'} onClick={() => setActiveView('matrix')}>Matrix view</button>
+        <button type="button" className={activeView === 'traditional' ? 'active' : ''} aria-selected={activeView === 'traditional'} onClick={() => setActiveView('traditional')}>Traditional recipe</button>
+      </nav>}
+      {recipe && activeView === 'matrix' && <section className="matrix-panel">
         <div className="matrix-caption">
           <div>
             <div className="section-kicker">Inputs → process → result</div>
@@ -259,6 +307,7 @@ function App() {
         {completedThrough > 0 && <div className="progress-strip"><span>Progress saved through step {completedThrough}</span><span className="progress-actions"><button type="button" onClick={() => setCompletedThrough((step) => Math.max(0, step - 1))}>Undo step {completedThrough}</button><button type="button" onClick={() => setCompletedThrough(0)}>Show all</button></span></div>}
         <RecipeMatrix recipe={recipe} completedThrough={completedThrough} onComplete={setCompletedThrough} onUndo={() => setCompletedThrough((step) => Math.max(0, step - 1))} />
       </section>}
+      {recipe && activeView === 'traditional' && <TraditionalRecipe recipe={recipe} />}
 
       {recipe && <Notes recipe={recipe} />}
       {recipe?.validation.needs_review && <div className="review-warning">Review needed: {recipe.validation.issues.join(' ')}</div>}
