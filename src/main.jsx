@@ -1,6 +1,6 @@
 import { StrictMode, useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import recipe from './recipe.json'
+import defaultRecipe from './recipe.json'
 import './styles.css'
 
 const colors = {
@@ -8,6 +8,35 @@ const colors = {
   'component-dressing': 'gold',
   'component-guacamole': 'sage',
   'component-optional': 'gold',
+}
+
+function validateRecipe(candidate) {
+  if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate)) return ['Recipe JSON must contain one object']
+  const errors = []
+  const required = ['schema_version', 'title', 'servings', 'components', 'ingredients', 'steps', 'notes', 'validation']
+  required.forEach((field) => {
+    if (!(field in candidate)) errors.push(`Missing required field: ${field}`)
+  })
+  if (errors.length) return errors
+  if (!Array.isArray(candidate.components) || !Array.isArray(candidate.ingredients) || !Array.isArray(candidate.steps)) {
+    return ['components, ingredients, and steps must be arrays']
+  }
+  const componentIds = new Set(candidate.components.map((item) => item.id))
+  const ingredientIds = new Set(candidate.ingredients.map((item) => item.id))
+  const stepIds = new Set(candidate.steps.map((item) => item.id))
+  const allIds = new Set([...componentIds, ...ingredientIds, ...stepIds])
+  candidate.ingredients.forEach((item) => {
+    if (!componentIds.has(item.component_id)) errors.push(`${item.id} references an unknown component`)
+    if (!Number.isInteger(item.row_order)) errors.push(`${item.id} needs an integer row_order`)
+    if (item.first_use_step !== null && !Number.isInteger(item.first_use_step)) errors.push(`${item.id} needs an integer or null first_use_step`)
+  })
+  candidate.steps.forEach((step) => {
+    ;[...(step.inputs || []), ...(step.outputs || [])].forEach((token) => {
+      if (!allIds.has(token.id)) errors.push(`${step.id} references an unknown ID: ${token.id}`)
+    })
+  })
+  if (new Set(candidate.ingredients.map((item) => item.row_order)).size !== candidate.ingredients.length) errors.push('ingredient row_order values must be unique')
+  return errors
 }
 
 function buildView(recipe, completedThrough) {
@@ -53,8 +82,8 @@ function buildView(recipe, completedThrough) {
   }
   const layouts = recipe.steps.filter((step) => step.order > completedThrough).map((step) => {
     const indexes = step.inputs.flatMap((token) => boundsFor(token, step))
-    const start = Math.min(...indexes)
-    const end = Math.max(...indexes)
+    const start = indexes.length ? Math.min(...indexes) : 0
+    const end = indexes.length ? Math.max(...indexes) : Math.max(0, rows.length - 1)
     return { step, start, end, span: end - start + 1 }
   })
   return { ingredients, rows, layouts }
@@ -150,7 +179,28 @@ function Notes({ recipe }) {
 }
 
 function App() {
+  const [recipe, setRecipe] = useState(defaultRecipe)
   const [completedThrough, setCompletedThrough] = useState(0)
+  const [loadedFile, setLoadedFile] = useState('Built-in recipe')
+  const [importError, setImportError] = useState('')
+
+  const handleFile = async (event) => {
+    const file = event.currentTarget.files?.[0]
+    event.currentTarget.value = ''
+    if (!file) return
+    try {
+      const candidate = JSON.parse(await file.text())
+      const errors = validateRecipe(candidate)
+      if (errors.length) throw new Error(errors.join('; '))
+      setRecipe(candidate)
+      setCompletedThrough(0)
+      setLoadedFile(file.name)
+      setImportError('')
+    } catch (error) {
+      setImportError(error.message || 'Could not read that recipe JSON file.')
+    }
+  }
+
   return (
     <main className="app-shell">
       <div className="top-rule" />
@@ -162,13 +212,21 @@ function App() {
           <span className="meta-divider" />
           <span><strong>Read</strong> left to right</span>
         </div>
+        <div className="recipe-tools">
+          <label className="file-picker">
+            <input type="file" accept="application/json,.json" onChange={handleFile} />
+            <span>Load recipe JSON</span>
+          </label>
+          <span className="loaded-file">{loadedFile}</span>
+          {importError && <span className="import-error" role="alert">{importError}</span>}
+        </div>
       </header>
 
       <section className="matrix-panel">
         <div className="matrix-caption">
           <div>
             <div className="section-kicker">Inputs → process → result</div>
-            <h2>Build the salad</h2>
+            <h2>{recipe.title}</h2>
           </div>
           <div className="matrix-key"><span className="key-line" /> Ingredient rows merge into each operation</div>
         </div>

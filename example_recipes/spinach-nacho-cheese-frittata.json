@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "title": "Spinach & Nacho Cheese Frittata (Steam Oven)",
+  "servings": { "display": "Not specified" },
+  "components": [
+    { "id": "component-main", "name": "Main" }
+  ],
+  "ingredients": [
+    { "id": "ingredient-butter", "component_id": "component-main", "row_order": 1, "first_use_step": 2, "display": "5 g butter (for greasing dish)", "quantity": { "value": 5, "min": null, "max": null, "unit": "g", "display": "5 g", "qualifier": "for greasing dish" }, "name": "butter", "prep": "for greasing dish", "optional": false },
+    { "id": "ingredient-oil", "component_id": "component-main", "row_order": 2, "first_use_step": 3, "display": "10 g olive oil", "quantity": { "value": 10, "min": null, "max": null, "unit": "g", "display": "10 g", "qualifier": null }, "name": "olive oil", "prep": null, "optional": false },
+    { "id": "ingredient-onion", "component_id": "component-main", "row_order": 3, "first_use_step": 4, "display": "120 g yellow onion, diced", "quantity": { "value": 120, "min": null, "max": null, "unit": "g", "display": "120 g", "qualifier": null }, "name": "yellow onion", "prep": "diced", "optional": false },
+    { "id": "ingredient-spinach", "component_id": "component-main", "row_order": 4, "first_use_step": 5, "display": "150 g fresh spinach (or 100 g frozen, well drained)", "quantity": { "value": 150, "min": null, "max": null, "unit": "g", "display": "150 g", "qualifier": "or 100 g frozen, well drained" }, "name": "fresh spinach", "prep": null, "optional": false },
+    { "id": "ingredient-eggs", "component_id": "component-main", "row_order": 5, "first_use_step": 8, "display": "6 large eggs (≈ 300 g)", "quantity": { "value": 6, "min": null, "max": null, "unit": "eggs", "display": "6 (≈ 300 g)", "qualifier": null }, "name": "large eggs", "prep": null, "optional": false },
+    { "id": "ingredient-milk", "component_id": "component-main", "row_order": 6, "first_use_step": 8, "display": "180 g whole milk", "quantity": { "value": 180, "min": null, "max": null, "unit": "g", "display": "180 g", "qualifier": null }, "name": "whole milk", "prep": null, "optional": false },
+    { "id": "ingredient-cream", "component_id": "component-main", "row_order": 7, "first_use_step": 8, "display": "60 g heavy cream", "quantity": { "value": 60, "min": null, "max": null, "unit": "g", "display": "60 g", "qualifier": null }, "name": "heavy cream", "prep": null, "optional": false },
+    { "id": "ingredient-salt", "component_id": "component-main", "row_order": 8, "first_use_step": 8, "display": "2 g salt", "quantity": { "value": 2, "min": null, "max": null, "unit": "g", "display": "2 g", "qualifier": null }, "name": "salt", "prep": null, "optional": false },
+    { "id": "ingredient-pepper", "component_id": "component-main", "row_order": 9, "first_use_step": 8, "display": "1 g black pepper", "quantity": { "value": 1, "min": null, "max": null, "unit": "g", "display": "1 g", "qualifier": null }, "name": "black pepper", "prep": null, "optional": false },
+    { "id": "ingredient-garlic", "component_id": "component-main", "row_order": 10, "first_use_step": 8, "display": "2 g garlic powder", "quantity": { "value": 2, "min": null, "max": null, "unit": "g", "display": "2 g", "qualifier": null }, "name": "garlic powder", "prep": null, "optional": false },
+    { "id": "ingredient-paprika", "component_id": "component-main", "row_order": 11, "first_use_step": 8, "display": "2 g smoked paprika (optional)", "quantity": { "value": 2, "min": null, "max": null, "unit": "g", "display": "2 g", "qualifier": "optional" }, "name": "smoked paprika", "prep": null, "optional": true },
+    { "id": "ingredient-cheese", "component_id": "component-main", "row_order": 12, "first_use_step": 10, "display": "140 g nacho blend shredded cheese", "quantity": { "value": 140, "min": null, "max": null, "unit": "g", "display": "140 g", "qualifier": null }, "name": "nacho blend shredded cheese", "prep": null, "optional": false }
+  ],
+  "steps": [
+    { "id": "step-1", "order": 1, "text": "Preheat steam oven to 160°C (320°F), Medium steam", "card_label": "Preheat steam oven", "inputs": [], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-2", "order": 2, "text": "Grease a 23 cm (9-inch) dish with butter", "card_label": "Grease baking dish", "inputs": [{ "type": "ingredient", "id": "ingredient-butter" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-3", "order": 3, "text": "Heat olive oil in a pan over medium", "card_label": "Heat olive oil", "inputs": [{ "type": "ingredient", "id": "ingredient-oil" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-4", "order": 4, "text": "Cook onion 5–6 minutes until soft", "card_label": "Cook onion until soft", "inputs": [{ "type": "ingredient", "id": "ingredient-onion" }, { "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-5", "order": 5, "text": "Add spinach and cook until wilted (or heated through if frozen)", "card_label": "Wilt spinach", "inputs": [{ "type": "ingredient", "id": "ingredient-spinach" }, { "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-6", "order": 6, "text": "Cook off excess moisture (important so frittata isn’t watery)", "card_label": "Cook off moisture", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-7", "order": 7, "text": "Remove from heat and cool slightly", "card_label": "Cool spinach mixture", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-8", "order": 8, "text": "Whisk eggs, milk, cream, salt, pepper, garlic powder, and paprika", "card_label": "Whisk egg mixture", "inputs": [{ "type": "ingredient", "id": "ingredient-eggs" }, { "type": "ingredient", "id": "ingredient-milk" }, { "type": "ingredient", "id": "ingredient-cream" }, { "type": "ingredient", "id": "ingredient-salt" }, { "type": "ingredient", "id": "ingredient-pepper" }, { "type": "ingredient", "id": "ingredient-garlic" }, { "type": "ingredient", "id": "ingredient-paprika" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-9", "order": 9, "text": "Spread spinach + onion mixture evenly in dish", "card_label": "Spread spinach mixture", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-10", "order": 10, "text": "Sprinkle cheese evenly over vegetables", "card_label": "Sprinkle cheese", "inputs": [{ "type": "ingredient", "id": "ingredient-cheese" }, { "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-11", "order": 11, "text": "Pour egg mixture over top", "card_label": "Pour egg mixture", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-12", "order": 12, "text": "Bake 25–30 minutes until just set", "card_label": "Bake until just set", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-13", "order": 13, "text": "Center should have a slight jiggle", "card_label": "Check center jiggle", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-14", "order": 14, "text": "Optional finish: Switch to 0% steam / broil (or 220°C dry) for 3–5 minutes to brown the top", "card_label": "Optional brown-top finish", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-15", "order": 15, "text": "Rest 10 minutes before slicing", "card_label": "Rest before slicing", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] }
+  ],
+  "notes": [
+    { "id": "note-1", "text": "If your nacho blend includes pepper jack or jalapeño, skip paprika (already enough flavor)", "related_ids": ["ingredient-cheese", "ingredient-paprika"] },
+    { "id": "note-2", "text": "For a firmer, more sliceable result (meal prep style): reduce milk to 150 g", "related_ids": ["ingredient-milk"] },
+    { "id": "note-3", "text": "For lower carb: replace onion with 80 g sautéed zucchini + 40 g scallions", "related_ids": ["ingredient-onion"] },
+    { "id": "note-4", "text": "This one reheats especially well sous vide at ~65°C", "related_ids": [] }
+  ],
+  "validation": { "needs_review": true, "issues": ["The source did not specify a serving count."] }
+}

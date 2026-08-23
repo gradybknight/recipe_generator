@@ -15,6 +15,13 @@ h2 { font: 700 31px/1.1 'Playfair Display', serif; margin: 8px 0 0; letter-spaci
 .header-meta { display: flex; gap: 17px; color: #7e8980; }
 .header-meta strong { color: #24322c; font-weight: 500; margin-right: 7px; }
 .meta-divider { width: 1px; background: #bec3b8; }
+.recipe-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 13px; margin-top: 27px; }
+.file-picker { display: inline-flex; align-items: center; cursor: pointer; }
+.file-picker input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.file-picker span { border: 1px solid #7e9d80; border-radius: 22px; padding: 9px 14px; color: #45634b; background: #e8f2e6; font: 11px 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .08em; }
+.file-picker span:hover { background: #d5e6d4; }
+.loaded-file { color: #7f8982; font: 11px 'DM Mono', monospace; }
+.import-error { flex-basis: 100%; color: #8a543e; font: 11px/1.5 'DM Mono', monospace; }
 .matrix-panel { border: 1px solid #35a04e; background: #fbfcf9; padding: 0 16px 16px; box-shadow: 0 4px 0 rgba(48, 97, 57, .07); }
 .matrix-caption { display: flex; justify-content: space-between; align-items: end; padding: 29px 17px 25px; }
 .section-kicker { color: #9b6a4a; }
@@ -27,9 +34,9 @@ h2 { font: 700 31px/1.1 'Playfair Display', serif; margin: 8px 0 0; letter-spaci
 .completed-head span { font-size: 15px; }
 .completed-head small { display: block; color: #819184; font: 9px 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .04em; }
 .completed-head:hover { background: #d5e6d4; }
-.ingredient-head { justify-content: flex-start; padding-left: 17px; border-right: 2px solid #35a04e; color: #637066; }
+.ingredient-head { position: sticky; left: 0; z-index: 5; justify-content: flex-start; padding-left: 17px; border-right: 2px solid #35a04e; color: #637066; }
 .operation-head { border-left: 1px solid #b4d8b6; }
-.matrix-ingredient { grid-column: 1; display: grid; grid-template-columns: 73px 1fr; gap: 12px; align-items: center; padding: 8px 12px 8px 10px; border-right: 2px solid #35a04e; border-bottom: 1px solid #b4d8b6; font-size: 14px; line-height: 1.25; background: #fff; }
+.matrix-ingredient { position: sticky; left: 0; z-index: 4; grid-column: 1; display: grid; grid-template-columns: 73px 1fr; gap: 12px; align-items: center; padding: 8px 12px 8px 10px; border-right: 2px solid #35a04e; border-bottom: 1px solid #b4d8b6; font-size: 14px; line-height: 1.25; background: #fff; box-shadow: 5px 0 7px -7px rgba(36, 50, 44, .55); }
 .matrix-ingredient.step-start { border-top: 3px solid #35a04e; }
 .summary-row { display: block; padding: 0; background: #e8f2e6; }
 .matrix-summary { height: 100%; min-height: 58px; display: flex; flex-direction: column; justify-content: center; padding: 9px 13px; gap: 3px; }
