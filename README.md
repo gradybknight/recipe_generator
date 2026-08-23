@@ -32,7 +32,14 @@ npm run preview
 
 The renderer consumes the contract documented in [`skills/recipe-card-structurer/references/schema.md`](skills/recipe-card-structurer/references/schema.md). The structuring instructions for converting plain-text recipes are in [`skills/recipe-card-structurer/SKILL.md`](skills/recipe-card-structurer/SKILL.md).
 
-Example recipe artifacts are in [`example_recipes/`](example_recipes/). The app starts with an upload target; choose a compatible JSON file to render it.
+Example recipe artifacts are in [`example_recipes/`](example_recipes/). The app discovers every `*.json` file in that folder during the Vite build and embeds it in the deployed bundle. To add another built-in recipe, place a valid recipe artifact in that folder and run the deployment script; no code changes are required:
+
+```bash
+cp /path/to/new-recipe.json example_recipes/
+./scripts/deploy.sh
+```
+
+The app starts with an upload target; choose a compatible JSON file to render it, or select any bundled example from the example-recipe menu.
 
 ## Deploy
 

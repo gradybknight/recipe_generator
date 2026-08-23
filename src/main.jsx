@@ -2,6 +2,10 @@ import { StrictMode, useEffect, useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles.css'
 
+const exampleRecipes = Object.entries(import.meta.glob('../example_recipes/*.json', { eager: true, import: 'default' }))
+  .map(([path, recipe]) => ({ path, recipe }))
+  .sort((a, b) => a.recipe.title.localeCompare(b.recipe.title))
+
 const colors = {
   'component-salad': 'sage',
   'component-dressing': 'gold',
@@ -177,7 +181,19 @@ function Notes({ recipe }) {
   )
 }
 
-function EmptyRecipe({ onFile, error }) {
+function ExampleRecipePicker({ examples, onSelect }) {
+  return (
+    <label className="example-picker">
+      <span>Or choose an example</span>
+      <select defaultValue="" onChange={(event) => onSelect(event.target.value)}>
+        <option value="" disabled>Select a bundled recipe…</option>
+        {examples.map(({ path, recipe }) => <option value={path} key={path}>{recipe.title}</option>)}
+      </select>
+    </label>
+  )
+}
+
+function EmptyRecipe({ onFile, onExample, examples, error }) {
   return (
     <section className="empty-panel">
       <div className="upload-target">
@@ -189,6 +205,7 @@ function EmptyRecipe({ onFile, error }) {
           <input type="file" accept="application/json,.json" onChange={onFile} />
           <span>Choose JSON file</span>
         </label>
+        <ExampleRecipePicker examples={examples} onSelect={onExample} />
         {error && <div className="import-error" role="alert">{error}</div>}
       </div>
     </section>
@@ -267,6 +284,15 @@ function App() {
     }
   }
 
+  const handleExample = (path) => {
+    const selected = exampleRecipes.find((item) => item.path === path)
+    if (!selected) return
+    setRecipe(selected.recipe)
+    setCompletedThrough(0)
+    setLoadedFile(selected.path.replace('../', ''))
+    setImportError('')
+  }
+
   return (
     <main className="app-shell">
       <div className="top-rule" />
@@ -283,6 +309,7 @@ function App() {
             <input type="file" accept="application/json,.json" onChange={handleFile} />
             <span>Load recipe JSON</span>
           </label>
+          <ExampleRecipePicker examples={exampleRecipes} onSelect={handleExample} />
           <button type="button" className="theme-toggle" onClick={() => setDarkMode((enabled) => !enabled)}>
             {darkMode ? 'Light mode' : 'Dark mode'}
           </button>
@@ -291,7 +318,7 @@ function App() {
         {!recipe && <div className="empty-header-tools"><button type="button" className="theme-toggle" onClick={() => setDarkMode((enabled) => !enabled)}>{darkMode ? 'Light mode' : 'Dark mode'}</button></div>}
       </header>
 
-      {!recipe && <EmptyRecipe onFile={handleFile} error={importError} />}
+      {!recipe && <EmptyRecipe onFile={handleFile} onExample={handleExample} examples={exampleRecipes} error={importError} />}
       {recipe && <nav className="view-tabs" aria-label="Recipe views">
         <button type="button" className={activeView === 'matrix' ? 'active' : ''} aria-selected={activeView === 'matrix'} onClick={() => setActiveView('matrix')}>Matrix view</button>
         <button type="button" className={activeView === 'traditional' ? 'active' : ''} aria-selected={activeView === 'traditional'} onClick={() => setActiveView('traditional')}>Traditional recipe</button>
