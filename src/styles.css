@@ -23,18 +23,35 @@ h2 { font: 700 31px/1.1 'Playfair Display', serif; margin: 8px 0 0; letter-spaci
 .matrix-scroll { overflow-x: auto; padding: 0 0 4px; }
 .recipe-matrix { --ingredient-width: 290px; --operation-width: 118px; display: grid; grid-template-columns: var(--ingredient-width) repeat(calc(var(--matrix-columns) - 1), var(--operation-width)); grid-template-rows: 44px repeat(var(--ingredient-rows), minmax(58px, auto)); min-width: calc(var(--ingredient-width) + (var(--operation-width) * (var(--matrix-columns) - 1))); position: relative; border: 1px solid #35a04e; border-right-width: 3px; border-bottom-width: 3px; background: #fff; }
 .matrix-head { display: flex; align-items: center; justify-content: center; color: #2c7c3b; border-bottom: 2px solid #35a04e; background: #f5fff3; }
+.completed-head { background: #e8f2e6; color: #527459; gap: 5px; border: 0; border-left: 1px solid #35a04e; cursor: pointer; font: 11px 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .1em; }
+.completed-head span { font-size: 15px; }
+.completed-head small { display: block; color: #819184; font: 9px 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .04em; }
+.completed-head:hover { background: #d5e6d4; }
 .ingredient-head { justify-content: flex-start; padding-left: 17px; border-right: 2px solid #35a04e; color: #637066; }
 .operation-head { border-left: 1px solid #b4d8b6; }
 .matrix-ingredient { grid-column: 1; display: grid; grid-template-columns: 73px 1fr; gap: 12px; align-items: center; padding: 8px 12px 8px 10px; border-right: 2px solid #35a04e; border-bottom: 1px solid #b4d8b6; font-size: 14px; line-height: 1.25; background: #fff; }
 .matrix-ingredient.component-start { border-top: 3px solid #35a04e; }
+.summary-row { display: block; padding: 0; background: #e8f2e6; }
+.matrix-summary { height: 100%; min-height: 58px; display: flex; flex-direction: column; justify-content: center; padding: 9px 13px; gap: 3px; }
+.matrix-summary strong { font-size: 13px; font-weight: 600; }
+.matrix-summary small { color: #738175; font: 10px 'DM Mono', monospace; }
+.summary-check { color: #398249; font-size: 18px; line-height: 1; }
 .matrix-ingredient em { color: #718077; font-style: normal; }
 .matrix-amount { text-align: right; color: #67776b; letter-spacing: 0; line-height: 1.25; }
 .operation-cell { z-index: 2; margin: 0; border-left: 2px solid #35a04e; border-bottom: 1px solid #35a04e; background: rgba(255, 255, 255, .95); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 13px 9px; position: relative; }
 .operation-cell.warm { background: rgba(255, 251, 239, .96); }
 .operation-cell strong { font-size: 16px; line-height: 1.2; font-weight: 500; max-width: 108px; }
+.operation-cell button { border: 0; padding: 4px; color: inherit; background: transparent; cursor: pointer; font: inherit; }
+.operation-cell button:hover { color: #a36d49; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
 .operation-cell small { display: none; }
 .operation-number { color: #7b9a7b; position: absolute; top: 9px; right: 8px; font-size: 9px; letter-spacing: .04em; }
+.completed-cell { z-index: 2; border-left: 2px solid #35a04e; border-right: 1px solid #b4d8b6; background: #e8f2e6; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 12px 8px; }
+.completed-cell .matrix-summary { align-items: center; text-align: center; }
+.restore-button, .progress-strip button { border: 1px solid #a9b8a8; background: transparent; color: #58715c; border-radius: 20px; padding: 5px 9px; cursor: pointer; font: 10px 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .08em; }
+.restore-button:hover, .progress-strip button:hover { background: #d5e6d4; }
 .matrix-endcap { display: none; }
+.progress-strip { display: flex; align-items: center; justify-content: space-between; margin: 0 17px 14px; padding: 9px 11px; color: #57745b; background: #e8f2e6; font: 11px 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .08em; }
+.progress-actions { display: flex; gap: 7px; }
 .notes-panel { border: 1px solid #c9c9bb; border-top: 0; padding: 33px 34px 36px; background: #f3eee3; }
 .notes-panel h2 { margin-bottom: 28px; }
 .notes-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }

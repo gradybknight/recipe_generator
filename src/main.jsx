@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import recipe from './recipe.json'
 import './styles.css'
@@ -8,28 +8,54 @@ const colors = {
   'component-dressing': 'gold',
 }
 
-function buildLayout(recipe) {
+function buildView(recipe, completedThrough) {
   const ingredients = [...recipe.ingredients].sort((a, b) => a.row_order - b.row_order)
-  const ingredientIndex = Object.fromEntries(ingredients.map((item, index) => [item.id, index]))
-  const componentIndexes = Object.fromEntries(recipe.components.map((component) => {
-    return [component.id, ingredients.map((item, index) => ({ item, index }))]
-  }))
-
-  const boundsFor = (token, step) => {
-    const indexes = token.type === 'ingredient'
-      ? [ingredientIndex[token.id]]
-      : componentIndexes[token.id]
-        .filter(({ item }) => item.first_use_step !== null && item.first_use_step < step.order)
-        .map(({ index }) => index)
-    return indexes.filter((index) => index !== undefined)
+  const componentNames = Object.fromEntries(recipe.components.map((component) => [component.id, component.name]))
+  const summaryLabel = (items) => {
+    const names = [...new Set(items.map((item) => componentNames[item.component_id] || 'Prepared component'))]
+    return `${names.join(' + ')} — prepared`
   }
+  const directUses = Object.fromEntries(ingredients.map((item) => [item.id, recipe.steps
+    .filter((step) => step.inputs.some((token) => token.type === 'ingredient' && token.id === item.id))
+    .map((step) => step.order)]))
 
-  return recipe.steps.map((step) => {
+  const rows = []
+  let collapsedItems = []
+  const flushCollapsed = () => {
+    if (!collapsedItems.length) return
+    rows.push({ type: 'summary', items: collapsedItems, label: summaryLabel(collapsedItems) })
+    collapsedItems = []
+  }
+  ingredients.forEach((item) => {
+    const lastDirectUse = Math.max(...(directUses[item.id].length ? directUses[item.id] : [0]))
+    const canCollapse = completedThrough > 0 && item.first_use_step <= completedThrough && lastDirectUse <= completedThrough
+    if (canCollapse) collapsedItems.push(item)
+    else {
+      flushCollapsed()
+      rows.push({ type: 'ingredient', item })
+    }
+  })
+  flushCollapsed()
+
+  const rowIndex = new Map()
+  rows.forEach((row, index) => {
+    if (row.type === 'summary') row.items.forEach((item) => rowIndex.set(item.id, index))
+    else rowIndex.set(row.item.id, index)
+  })
+  const componentItems = Object.fromEntries(recipe.components.map((component) => [component.id, ingredients.filter((item) => item.component_id === component.id)]))
+  const boundsFor = (token, step) => {
+    const items = token.type === 'ingredient'
+      ? [ingredients.find((item) => item.id === token.id)]
+      : (componentItems[token.id] || []).filter((item) => item.first_use_step !== null && item.first_use_step < step.order)
+    return items.filter(Boolean).map((item) => rowIndex.get(item.id)).filter((index) => index !== undefined)
+  }
+  const layouts = recipe.steps.filter((step) => step.order > completedThrough).map((step) => {
     const indexes = step.inputs.flatMap((token) => boundsFor(token, step))
     const start = Math.min(...indexes)
     const end = Math.max(...indexes)
     return { step, start, end, span: end - start + 1 }
   })
+  return { ingredients, rows, layouts }
 }
 
 function IngredientCell({ item, isStart }) {
@@ -44,7 +70,17 @@ function IngredientCell({ item, isStart }) {
   )
 }
 
-function OperationCell({ layout, column }) {
+function SummaryCell({ row }) {
+  return (
+    <div className="matrix-summary">
+      <span className="summary-check">✓</span>
+      <strong>{row.label || 'Prepared ingredients'}</strong>
+      <small>{row.items.length} ingredients completed</small>
+    </div>
+  )
+}
+
+function OperationCell({ layout, column, onComplete }) {
   const { step, start, span } = layout
   return (
     <div
@@ -53,30 +89,37 @@ function OperationCell({ layout, column }) {
       title={step.text}
     >
       <span className="operation-number">{String(step.order).padStart(2, '0')}</span>
-      <strong>{step.card_label}</strong>
+      <button type="button" onClick={() => onComplete(step.order)}><strong>{step.card_label}</strong></button>
       <small>{step.text}</small>
     </div>
   )
 }
 
-function RecipeMatrix({ recipe }) {
-  const layouts = buildLayout(recipe)
-  const ingredients = [...recipe.ingredients].sort((a, b) => a.row_order - b.row_order)
-  const columnCount = recipe.steps.length + 1
+function RecipeMatrix({ recipe, completedThrough, onComplete, onUndo }) {
+  const { ingredients, rows, layouts } = useMemo(() => buildView(recipe, completedThrough), [recipe, completedThrough])
+  const hasCompleted = completedThrough > 0
+  const columnCount = layouts.length + (hasCompleted ? 1 : 0) + 1
+  const operationOffset = hasCompleted ? 1 : 0
   return (
     <div className="matrix-scroll">
-      <div className="recipe-matrix" style={{ '--matrix-columns': columnCount, '--ingredient-rows': ingredients.length }}>
+      <div className="recipe-matrix" style={{ '--matrix-columns': columnCount, '--ingredient-rows': rows.length }}>
         <div className="matrix-head ingredient-head">Ingredients</div>
-        {recipe.steps.map((step) => (
-          <div className="matrix-head operation-head" key={step.id} style={{ gridColumn: step.order + 1 }}>
-            {String(step.order).padStart(2, '0')}
+        {hasCompleted && <button type="button" className="matrix-head completed-head" onClick={onUndo} title={`Undo step ${completedThrough}`}><span>✓</span> 01–{String(completedThrough).padStart(2, '0')} <small>undo {String(completedThrough).padStart(2, '0')}</small></button>}
+        {layouts.map((layout, index) => (
+          <div className="matrix-head operation-head" key={layout.step.id} style={{ gridColumn: index + 2 + operationOffset }}>
+            {String(layout.step.order).padStart(2, '0')}
           </div>
         ))}
-        {ingredients.map((item, index) => (
-          <IngredientCell item={item} isStart={index > 0 && item.component_id !== ingredients[index - 1].component_id} key={item.id} />
-        ))}
+        {rows.map((row, index) => row.type === 'summary'
+          ? <div className="matrix-ingredient summary-row" key={`summary-${index}`}><SummaryCell row={row} /></div>
+          : <IngredientCell item={row.item} isStart={index > 0 && rows[index - 1].type === 'ingredient' && row.item.component_id !== rows[index - 1].item.component_id} key={row.item.id} />
+        )}
+        {hasCompleted && <div className="completed-cell" style={{ gridColumn: 2, gridRow: `2 / span ${rows.length}` }}>
+          <SummaryCell row={{ label: `Completed through step ${completedThrough}`, items: ingredients.filter((item) => item.first_use_step <= completedThrough && Math.max(...(recipe.steps.filter((step) => step.inputs.some((token) => token.type === 'ingredient' && token.id === item.id)).map((step) => step.order)), 0) <= completedThrough) }} />
+          <button type="button" className="restore-button" onClick={onUndo}>undo step</button>
+        </div>}
         {layouts.map((layout, index) => (
-          <OperationCell layout={layout} column={index} key={layout.step.id} />
+          <OperationCell layout={layout} column={index + operationOffset} onComplete={onComplete} key={layout.step.id} />
         ))}
         <div className="matrix-endcap" />
       </div>
@@ -102,6 +145,7 @@ function Notes({ recipe }) {
 }
 
 function App() {
+  const [completedThrough, setCompletedThrough] = useState(0)
   return (
     <main className="app-shell">
       <div className="top-rule" />
@@ -123,7 +167,8 @@ function App() {
           </div>
           <div className="matrix-key"><span className="key-line" /> Ingredient rows merge into each operation</div>
         </div>
-        <RecipeMatrix recipe={recipe} />
+        {completedThrough > 0 && <div className="progress-strip"><span>Progress saved through step {completedThrough}</span><span className="progress-actions"><button type="button" onClick={() => setCompletedThrough((step) => Math.max(0, step - 1))}>Undo step {completedThrough}</button><button type="button" onClick={() => setCompletedThrough(0)}>Show all</button></span></div>}
+        <RecipeMatrix recipe={recipe} completedThrough={completedThrough} onComplete={setCompletedThrough} onUndo={() => setCompletedThrough((step) => Math.max(0, step - 1))} />
       </section>
 
       <Notes recipe={recipe} />
