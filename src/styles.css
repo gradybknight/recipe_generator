@@ -207,6 +207,7 @@ footer { display: flex; justify-content: space-between; color: #8b938c; padding:
   .mobile-step-detail { display: block; margin: 8px 0 0 27px; color: #71849a; font: 12px/1.4 'DM Mono', monospace; }
   .mobile-step-ingredients { display: grid; gap: 0; margin: 15px 0 14px 27px; border-top: 1px solid #d5e3f1; }
   .mobile-step-ingredients div { padding: 8px 0; border-bottom: 1px solid #d5e3f1; color: #18324f; font-size: 15px; line-height: 1.3; }
+  .mobile-step-ingredients .mobile-prepared-input { color: #607991; font: 11px 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .06em; }
   .mobile-step-ingredients span { display: inline-block; width: 62px; color: #71849a; font: 10px 'DM Mono', monospace; text-align: right; margin-right: 10px; }
   .mobile-step-ingredients em { color: #71849a; font-style: normal; }
   .mobile-step-detail .critical-temperature { font-size: 1.3em; }
@@ -372,6 +373,7 @@ footer { color: #74879a; }
   :root[data-theme='dark'] .mobile-step-detail, :root[data-theme='dark'] .mobile-step-ingredients span, :root[data-theme='dark'] .mobile-step-ingredients em { color: #a8bdd4; }
   :root[data-theme='dark'] .mobile-step-ingredients { border-color: #486b8e; }
   :root[data-theme='dark'] .mobile-step-ingredients div { border-color: #334f6c; }
+  :root[data-theme='dark'] .mobile-step-ingredients .mobile-prepared-input { color: #a8bdd4; }
   :root[data-theme='dark'] .mobile-complete-button { border-color: #78a9dc; color: #102235; background: #a9d0f5; }
   :root[data-theme='dark'] .mobile-complete-button:hover { background: #c6def7; }
 }
