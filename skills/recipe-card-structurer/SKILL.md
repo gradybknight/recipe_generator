@@ -14,7 +14,7 @@ Convert the supplied standard-format recipe into the JSON contract in [schema.md
 3. Create one ingredient object for every listed ingredient. Keep parenthetical alternatives and conversions in `display`; put a parsed numeric quantity in `quantity` only when unambiguous.
 4. Create components from explicit ingredient section headings. If there is no heading, use one component named `Main`.
 5. Create ordered steps from the instruction paragraphs. Do not merge steps when doing so would hide sequence, timing, temperature, conditionals, or a later reuse of an ingredient.
-6. Link ingredients to steps only when the source explicitly or clearly implies the relationship. If a relationship is uncertain, omit the link and add a concise item to `validation.issues`.
+6. Link ingredients to steps when the source explicitly or clearly implies the relationship. Optional ingredients listed without an explicit step may be assigned to the most semantically appropriate incorporation step when the cooking sequence makes that moment clear (for example, optional herbs and spices belong with a seasoning step before tasting). Mark that inference in `validation.issues`; if no logical step is clear, leave the optional ingredient unassigned.
 7. Model intermediate results (for example, a dressing) as component outputs. Use `inputs` and `outputs` on steps so the SPA can draw arrows and brackets.
 8. Represent “about ¾,” “as needed,” “to taste,” optional ingredients, and ranges as display text or quantity qualifiers; never turn them into false precision.
 9. Preserve notes separately. A note may reference an ingredient or step, but do not silently convert advice into an instruction.
@@ -24,7 +24,7 @@ Convert the supplied standard-format recipe into the JSON contract in [schema.md
 
 The `ingredients` array is also the renderer's left-to-right/vertical row order. Do not preserve the source's section order when it conflicts with the cooking sequence. Order ingredients by the first instruction step in which each ingredient is used; use their original order as the tie-breaker. This puts ingredients added late (for example, a garnish or a final fold-in) near the bottom of the card even if they appeared earlier in the source list.
 
-Every ingredient must include `row_order` (1-based visual position) and `first_use_step` (the 1-based step where it is first used). If an ingredient is only mentioned in notes, set `first_use_step` to `null` and place it after all used ingredients. Keep `component_id` unchanged so source/component membership remains available independently of visual row order.
+Every ingredient must include `row_order` (1-based visual position) and `first_use_step` (the 1-based step where it is first used). If an ingredient is only mentioned in notes, or no logical step can be inferred for an optional ingredient, set `first_use_step` to `null` and place it after all used ingredients. Keep `component_id` unchanged so source/component membership remains available independently of visual row order.
 
 ## Quantity parsing
 

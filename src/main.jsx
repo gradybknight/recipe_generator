@@ -6,6 +6,8 @@ import './styles.css'
 const colors = {
   'component-salad': 'sage',
   'component-dressing': 'gold',
+  'component-guacamole': 'sage',
+  'component-optional': 'gold',
 }
 
 function buildView(recipe, completedThrough) {
@@ -28,7 +30,7 @@ function buildView(recipe, completedThrough) {
   }
   ingredients.forEach((item) => {
     const lastDirectUse = Math.max(...(directUses[item.id].length ? directUses[item.id] : [0]))
-    const canCollapse = completedThrough > 0 && item.first_use_step <= completedThrough && lastDirectUse <= completedThrough
+    const canCollapse = completedThrough > 0 && item.first_use_step !== null && item.first_use_step <= completedThrough && lastDirectUse <= completedThrough
     if (canCollapse) collapsedItems.push(item)
     else {
       flushCollapsed()
@@ -58,13 +60,16 @@ function buildView(recipe, completedThrough) {
   return { ingredients, rows, layouts }
 }
 
-function IngredientCell({ item, isStart }) {
+function IngredientCell({ item, isStepStart }) {
+  const label = item.quantity.display === null
+    ? item.display
+    : <>{item.name}{item.prep && <em>, {item.prep}</em>}</>
   return (
-    <div className={`matrix-ingredient ${colors[item.component_id] || ''} ${isStart ? 'component-start' : ''}`}>
+    <div className={`matrix-ingredient ${colors[item.component_id] || ''} ${isStepStart ? 'step-start' : ''}`}>
       <span className="matrix-amount">{item.quantity.display}</span>
       <span>
-        {item.name}
-        {item.prep && <em>, {item.prep}</em>}
+        {label}
+        {item.optional && <em> (optional)</em>}
       </span>
     </div>
   )
@@ -112,7 +117,7 @@ function RecipeMatrix({ recipe, completedThrough, onComplete, onUndo }) {
         ))}
         {rows.map((row, index) => row.type === 'summary'
           ? <div className="matrix-ingredient summary-row" key={`summary-${index}`}><SummaryCell row={row} /></div>
-          : <IngredientCell item={row.item} isStart={index > 0 && rows[index - 1].type === 'ingredient' && row.item.component_id !== rows[index - 1].item.component_id} key={row.item.id} />
+          : <IngredientCell item={row.item} isStepStart={index > 0 && rows[index - 1].type === 'ingredient' && row.item.first_use_step !== rows[index - 1].item.first_use_step} key={row.item.id} />
         )}
         {hasCompleted && <div className="completed-cell" style={{ gridColumn: 2, gridRow: `2 / span ${rows.length}` }}>
           <SummaryCell row={{ label: `Completed through step ${completedThrough}`, items: ingredients.filter((item) => item.first_use_step <= completedThrough && Math.max(...(recipe.steps.filter((step) => step.inputs.some((token) => token.type === 'ingredient' && token.id === item.id)).map((step) => step.order)), 0) <= completedThrough) }} />
