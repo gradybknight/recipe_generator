@@ -107,6 +107,22 @@ function IngredientCell({ item, isStepStart }) {
   )
 }
 
+function formatCriticalDetail(detail) {
+  if (!detail) return null
+  const temperaturePattern = /(\d+(?:[–-]\d+)?\s*°?\s*[FC])/gi
+  const parts = []
+  let lastIndex = 0
+  let match
+  while ((match = temperaturePattern.exec(detail))) {
+    if (match.index > lastIndex) parts.push(detail.slice(lastIndex, match.index))
+    parts.push(<strong className="critical-temperature" key={`${match.index}-${match[0]}`}>{match[0]}</strong>)
+    lastIndex = match.index + match[0].length
+  }
+  if (!parts.length) return detail
+  if (lastIndex < detail.length) parts.push(detail.slice(lastIndex))
+  return parts
+}
+
 function SummaryCell({ row }) {
   return (
     <div className="matrix-summary">
@@ -127,7 +143,7 @@ function OperationCell({ layout, column, onComplete }) {
     >
       <span className="operation-number">{String(step.order).padStart(2, '0')}</span>
       <button type="button" onClick={() => onComplete(step.order)}><strong>{step.card_label}</strong></button>
-      {step.card_detail && <small>{step.card_detail}</small>}
+      {step.card_detail && <small>{formatCriticalDetail(step.card_detail)}</small>}
     </div>
   )
 }
@@ -156,7 +172,7 @@ function MobileMatrix({ recipe, ingredients, layouts, completedThrough, onComple
           const items = inputsFor(layout.step)
           return <article className="mobile-step-card" key={layout.step.id}>
             <div className="mobile-step-heading"><span>{String(layout.step.order).padStart(2, '0')}</span><strong>{layout.step.card_label}</strong></div>
-            {layout.step.card_detail && <small className="mobile-step-detail">{layout.step.card_detail}</small>}
+            {layout.step.card_detail && <small className="mobile-step-detail">{formatCriticalDetail(layout.step.card_detail)}</small>}
             {items.length > 0 && <div className="mobile-step-ingredients">
               {items.map((item) => <div key={item.id}><span>{item.quantity.display}</span>{item.name}{item.prep && <em>, {item.prep}</em>}</div>)}
             </div>}
@@ -371,7 +387,7 @@ function TraditionalRecipe({ recipe }) {
               <div>
                 <h3>{step.card_label}</h3>
                 <p>{step.text}</p>
-                {step.card_detail && <small>{step.card_detail}</small>}
+                {step.card_detail && <small>{formatCriticalDetail(step.card_detail)}</small>}
               </div>
             </article>
           ))}
