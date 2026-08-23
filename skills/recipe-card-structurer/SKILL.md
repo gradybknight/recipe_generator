@@ -10,7 +10,7 @@ Convert the supplied standard-format recipe into the JSON contract in [schema.md
 ## Output rules
 
 1. Return exactly one JSON object and no Markdown fences, commentary, or trailing text.
-2. Preserve the recipe title, servings text, ingredient wording, instruction wording, and notes as closely as possible. Condensing an instruction is allowed only in the separate `card_label` field; `text` remains faithful source text.
+2. Preserve the recipe title, servings text, ingredient wording, instruction wording, and notes as closely as possible. Condensing an instruction is allowed only in `card_label` and `card_detail`; `text` remains faithful source text.
 3. Create one ingredient object for every listed ingredient. Keep parenthetical alternatives and conversions in `display`; put a parsed numeric quantity in `quantity` only when unambiguous.
 4. Create components from explicit ingredient section headings. If there is no heading, use one component named `Main`.
 5. Create ordered steps from the instruction paragraphs. Do not merge steps when doing so would hide sequence, timing, temperature, conditionals, or a later reuse of an ingredient.
@@ -19,6 +19,8 @@ Convert the supplied standard-format recipe into the JSON contract in [schema.md
 8. Represent “about ¾,” “as needed,” “to taste,” optional ingredients, and ranges as display text or quantity qualifiers; never turn them into false precision.
 9. Preserve notes separately. A note may reference an ingredient or step, but do not silently convert advice into an instruction.
 10. Set `validation.needs_review` to `true` whenever parsing required an assumption, a relationship is ambiguous, or the source contains an unsupported structure. Otherwise set it to `false`.
+
+Every step with a temperature, time, cooking mode, quantity, conditional, or doneness/safety cue must include a concise `card_detail` that preserves that critical information for compact visual rendering. Use `null` only when the step has no such detail. Never infer a missing temperature or time.
 
 ## Visual row ordering
 

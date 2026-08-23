@@ -31,6 +31,7 @@ The contract is presentation-neutral. The SPA can render ingredients as rows, st
     "order": 1,
     "text": "faithful instruction text",
     "card_label": "short label",
+    "card_detail": "critical temperature, time, mode, or cue",
     "inputs": [{ "type": "ingredient", "id": "ingredient-1" }],
     "outputs": [{ "type": "component", "id": "component-1" }]
   }],
@@ -42,7 +43,7 @@ The contract is presentation-neutral. The SPA can render ingredients as rows, st
 }
 ```
 
-Required top-level fields are `schema_version`, `title`, `servings`, `components`, `ingredients`, `steps`, `notes`, and `validation`. Each ingredient also requires `row_order` and `first_use_step`. `quantity.value`, `min`, `max`, `unit`, `qualifier`, `prep`, and `card_label` may be `null` when not present or not safely parseable. `display` fields are always retained for faithful rendering. The ingredient array must be sorted by `row_order`.
+Required top-level fields are `schema_version`, `title`, `servings`, `components`, `ingredients`, `steps`, `notes`, and `validation`. Each ingredient also requires `row_order` and `first_use_step`. Each step requires `card_label` and `card_detail`; `card_detail` may be `null` when the step has no critical parameter. `quantity.value`, `min`, `max`, `unit`, `qualifier`, `prep`, and `card_label` may be `null` when not present or not safely parseable. `display` fields are always retained for faithful rendering. The ingredient array must be sorted by `row_order`.
 
 ## Worked example: relationship pattern
 
@@ -81,6 +82,7 @@ Required top-level fields are `schema_version`, `title`, `servings`, `components
       "order": 1,
       "text": "Chop the romaine and place it in a large salad bowl with the spinach and arugula.",
       "card_label": "Chop and combine greens",
+      "card_detail": null,
       "inputs": [{ "type": "ingredient", "id": "ingredient-romaine" }],
       "outputs": [{ "type": "component", "id": "component-salad" }]
     },
@@ -89,6 +91,7 @@ Required top-level fields are `schema_version`, `title`, `servings`, `components
       "order": 2,
       "text": "Whisk together the yogurt, lemon juice, olive oil, Dijon mustard, garlic powder, oregano, salt, and black pepper until smooth.",
       "card_label": "Whisk dressing until smooth",
+      "card_detail": "until smooth",
       "inputs": [{ "type": "ingredient", "id": "ingredient-yogurt" }],
       "outputs": [{ "type": "component", "id": "component-dressing" }]
     }

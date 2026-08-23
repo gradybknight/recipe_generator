@@ -124,7 +124,7 @@ function OperationCell({ layout, column, onComplete }) {
     >
       <span className="operation-number">{String(step.order).padStart(2, '0')}</span>
       <button type="button" onClick={() => onComplete(step.order)}><strong>{step.card_label}</strong></button>
-      <small>{step.text}</small>
+      {step.card_detail && <small>{step.card_detail}</small>}
     </div>
   )
 }
