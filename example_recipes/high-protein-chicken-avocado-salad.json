@@ -28,6 +28,22 @@
     { "id": "step-9", "order": 9, "text": "Taste and adjust with additional salt, black pepper, lemon juice, or hot sauce.", "card_label": "Taste and adjust", "card_detail": "additional salt, pepper, lemon juice, or hot sauce", "inputs": [{ "type": "component", "id": "component-main" }, { "type": "ingredient", "id": "ingredient-salt" }, { "type": "ingredient", "id": "ingredient-pepper" }, { "type": "ingredient", "id": "ingredient-lemon-juice" }, { "type": "ingredient", "id": "ingredient-hot-sauce" }], "outputs": [{ "type": "component", "id": "component-main" }] },
     { "id": "step-10", "order": 10, "text": "Serve immediately or refrigerate until chilled.", "card_label": "Serve or chill", "card_detail": "serve immediately or refrigerate until chilled", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] }
   ],
+  "timeline": {
+    "summary": "Start the salad prep while the chicken is cooking so the oven time does not become idle time.",
+    "tasks": [
+      { "id": "timeline-season", "label": "Season chicken", "lane": "Chicken", "start": 0, "duration_min": 3, "duration_max": 3, "source_step_ids": ["step-2"], "inferred": true },
+      { "id": "timeline-cook", "label": "Cook chicken", "lane": "Chicken", "start": 3, "duration_min": 15, "duration_max": 20, "source_step_ids": ["step-4"], "inferred": false },
+      { "id": "timeline-rest", "label": "Rest chicken", "lane": "Chicken", "start": 23, "duration_min": 5, "duration_max": 5, "source_step_ids": ["step-5"], "inferred": false },
+      { "id": "timeline-dice", "label": "Dice or shred chicken", "lane": "Chicken", "start": 28, "duration_min": 3, "duration_max": 3, "source_step_ids": ["step-6"], "inferred": true },
+      { "id": "timeline-prep-salad", "label": "Dice avocado, cucumber, and dill", "lane": "Salad prep", "start": 3, "duration_min": 5, "duration_max": 8, "source_step_ids": ["step-7"], "inferred": true },
+      { "id": "timeline-mix", "label": "Mix salad", "lane": "Salad prep", "start": 31, "duration_min": 2, "duration_max": 2, "source_step_ids": ["step-8"], "inferred": true },
+      { "id": "timeline-finish", "label": "Taste and serve", "lane": "Salad prep", "start": 33, "duration_min": 2, "duration_max": 2, "source_step_ids": ["step-9", "step-10"], "inferred": true }
+    ],
+    "notes": [
+      "Suggested prep durations are estimates; the chicken cook and rest durations come from the recipe.",
+      "The salad prep can overlap the chicken cook. If cooking takes the full 20 minutes, shift the later chicken tasks by 5 minutes."
+    ]
+  },
   "notes": [
     { "id": "note-1", "text": "If the chicken breasts are especially thick, pound them to an even thickness before cooking for more predictable results.", "related_ids": ["ingredient-chicken", "step-3", "step-4"] },
     { "id": "note-2", "text": "Chicken thighs also work well. Use about 12 oz / 340 g boneless, skinless thighs and cook to at least 165°F / 74°C; I prefer them around 175°F / 79°C for better texture.", "related_ids": ["step-4"] },

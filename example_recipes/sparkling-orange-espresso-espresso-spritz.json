@@ -165,6 +165,19 @@
       "outputs": []
     }
   ],
+  "timeline": {
+    "summary": "Build the chilled drink while the espresso brews, then layer and serve immediately.",
+    "tasks": [
+      { "id": "timeline-build-base", "label": "Fill glass and add orange juice", "lane": "Spritz", "start": 0, "duration_min": 2, "duration_max": 2, "source_step_ids": ["step-1", "step-2"], "inferred": true },
+      { "id": "timeline-sparkling", "label": "Add sparkling water", "lane": "Spritz", "start": 2, "duration_min": 1, "duration_max": 1, "source_step_ids": ["step-3"], "inferred": false },
+      { "id": "timeline-espresso", "label": "Brew espresso", "lane": "Espresso", "start": 0, "duration_min": 2, "duration_max": 3, "source_step_ids": ["step-4"], "inferred": true },
+      { "id": "timeline-layer", "label": "Layer espresso and serve", "lane": "Espresso", "start": 3, "duration_min": 2, "duration_max": 2, "source_step_ids": ["step-5", "step-6"], "inferred": true }
+    ],
+    "notes": [
+      "All active-task durations are suggested estimates because the source gives no preparation times.",
+      "Brew the espresso while the orange and sparkling water base is being assembled."
+    ]
+  },
   "notes": [
     {
       "id": "note-1",

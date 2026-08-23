@@ -27,6 +27,24 @@
     { "id": "step-11", "order": 11, "text": "Remove from the heat and stir in the scallions.", "card_label": "Stir in scallions", "card_detail": "off heat", "inputs": [{ "type": "component", "id": "component-main" }, { "type": "ingredient", "id": "ingredient-scallions" }], "outputs": [{ "type": "component", "id": "component-main" }] },
     { "id": "step-12", "order": 12, "text": "Serve immediately.", "card_label": "Serve immediately", "card_detail": null, "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] }
   ],
+  "timeline": {
+    "summary": "Prepare the marinade and heat the broiler during the marinating window; reduce the sauce only after the chicken is fully broiled.",
+    "tasks": [
+      { "id": "timeline-trim", "label": "Trim and cut chicken", "lane": "Chicken", "duration_min": null, "duration_max": null, "duration_source": "unspecified", "source_step_ids": ["step-1"], "inferred": false, "depends_on": [] },
+      { "id": "timeline-marinade", "label": "Whisk marinade", "lane": "Marinade", "duration_min": null, "duration_max": null, "duration_source": "unspecified", "source_step_ids": ["step-2"], "inferred": false, "depends_on": [] },
+      { "id": "timeline-coat", "label": "Coat chicken", "lane": "Chicken", "duration_min": null, "duration_max": null, "duration_source": "unspecified", "source_step_ids": ["step-3"], "inferred": false, "depends_on": [{ "task_id": "timeline-trim", "relationship": "finish-to-start" }, { "task_id": "timeline-marinade", "relationship": "finish-to-start" }] },
+      { "id": "timeline-marinate", "label": "Marinate chicken", "lane": "Chicken", "duration_min": 15, "duration_max": 20, "duration_source": "source", "source_step_ids": ["step-4"], "inferred": false, "depends_on": [{ "task_id": "timeline-coat", "relationship": "finish-to-start" }] },
+      { "id": "timeline-broiler", "label": "Preheat broiler", "lane": "Broiler", "duration_min": null, "duration_max": null, "duration_source": "unspecified", "source_step_ids": ["step-5"], "inferred": true, "depends_on": [{ "task_id": "timeline-marinate", "relationship": "start-to-start" }] },
+      { "id": "timeline-broil", "label": "Broil chicken", "lane": "Broiler", "duration_min": 18, "duration_max": 24, "duration_source": "source", "source_step_ids": ["step-6", "step-7", "step-8"], "inferred": false, "depends_on": [{ "task_id": "timeline-marinate", "relationship": "finish-to-start" }, { "task_id": "timeline-broiler", "relationship": "finish-to-start" }] },
+      { "id": "timeline-simmer", "label": "Simmer sauce", "lane": "Sauce", "duration_min": null, "duration_max": null, "duration_source": "unspecified", "source_step_ids": ["step-9"], "inferred": false, "depends_on": [{ "task_id": "timeline-broil", "relationship": "finish-to-start" }] },
+      { "id": "timeline-reduce", "label": "Reduce to thick glaze", "lane": "Sauce", "duration_min": 3, "duration_max": 5, "duration_source": "source", "source_step_ids": ["step-10"], "inferred": false, "depends_on": [{ "task_id": "timeline-simmer", "relationship": "finish-to-start" }] },
+      { "id": "timeline-finish", "label": "Stir in scallions and serve", "lane": "Finishing", "duration_min": null, "duration_max": null, "duration_source": "unspecified", "source_step_ids": ["step-11", "step-12"], "inferred": false, "depends_on": [{ "task_id": "timeline-reduce", "relationship": "finish-to-start" }] }
+    ],
+    "notes": [
+      "The marinating and broiling ranges and sauce-reduction range come from the source. Prep, broiler-preheat, simmer, and finishing durations are unspecified.",
+      "Broiler preheating may begin when marinating begins, but simmering cannot begin until broiling and doneness checking are complete."
+    ]
+  },
   "notes": [
     { "id": "note-1", "text": "85 g gochujang gives a moderately spicy version. Increase to about 125 g for a hotter version.", "related_ids": ["ingredient-gochujang"] },
     { "id": "note-2", "text": "Chicken thighs can comfortably cook into the 175–185°F range without drying out.", "related_ids": ["ingredient-chicken"] },
@@ -34,5 +52,5 @@
     { "id": "note-4", "text": "Use gluten-free gochujang and tamari to keep the recipe gluten-free.", "related_ids": ["ingredient-gochujang", "ingredient-tamari"] },
     { "id": "note-5", "text": "Good sides include steamed rice, roasted broccoli, cucumber salad, or cabbage slaw.", "related_ids": [] }
   ],
-  "validation": { "needs_review": true, "issues": ["The source did not specify a serving count."] }
+  "validation": { "needs_review": true, "issues": ["The source did not specify a serving count.", "Several timeline task durations are unspecified because the source did not provide them; the renderer should not invent precise durations."] }
 }

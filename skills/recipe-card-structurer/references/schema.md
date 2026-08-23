@@ -35,6 +35,21 @@ The contract is presentation-neutral. The SPA can render ingredients as rows, st
     "inputs": [{ "type": "ingredient", "id": "ingredient-1" }],
     "outputs": [{ "type": "component", "id": "component-1" }]
   }],
+  "timeline": {
+    "summary": "string",
+    "tasks": [{
+      "id": "timeline-task-1",
+      "label": "string",
+      "lane": "string",
+      "source_step_ids": ["step-1"],
+      "duration_min": 0,
+      "duration_max": 0,
+      "duration_source": "source",
+      "inferred": false,
+      "depends_on": [{ "task_id": "timeline-task-0", "relationship": "finish-to-start" }]
+    }],
+    "notes": ["string"]
+  },
   "notes": [{ "id": "note-1", "text": "faithful note text", "related_ids": [] }],
   "validation": {
     "needs_review": false,
@@ -43,7 +58,9 @@ The contract is presentation-neutral. The SPA can render ingredients as rows, st
 }
 ```
 
-Required top-level fields are `schema_version`, `title`, `servings`, `components`, `ingredients`, `steps`, `notes`, and `validation`. Each ingredient also requires `row_order` and `first_use_step`. Each step requires `card_label` and `card_detail`; `card_detail` may be `null` when the step has no critical parameter. `quantity.value`, `min`, `max`, `unit`, `qualifier`, `prep`, and `card_label` may be `null` when not present or not safely parseable. `display` fields are always retained for faithful rendering. The ingredient array must be sorted by `row_order`.
+Required top-level fields are `schema_version`, `title`, `servings`, `components`, `ingredients`, `steps`, `timeline`, `notes`, and `validation`. Each ingredient also requires `row_order` and `first_use_step`. Each step requires `card_label` and `card_detail`; `card_detail` may be `null` when the step has no critical parameter. `quantity.value`, `min`, `max`, `unit`, `qualifier`, `prep`, and `card_label` may be `null` when not present or not safely parseable. `display` fields are always retained for faithful rendering. The ingredient array must be sorted by `row_order`.
+
+`timeline.tasks[].duration_min` and `duration_max` may be `null` when the source gives no duration. When both are numeric, `duration_min` must not exceed `duration_max`. `duration_source` must be `source`, `unspecified`, or `inferred`; use `inferred` only when estimated timing is explicitly authorized. `depends_on[].relationship` must be `finish-to-start`, `start-to-start`, or `finish-to-finish`. Timeline start positions are derived by the renderer from task durations and dependencies and are not stored in the contract.
 
 ## Worked example: relationship pattern
 

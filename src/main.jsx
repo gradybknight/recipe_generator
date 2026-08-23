@@ -400,6 +400,98 @@ function TraditionalRecipe({ recipe }) {
   )
 }
 
+function scheduleTimelineTasks(timeline) {
+  const tasks = timeline.tasks.map((task) => ({ ...task, chart_duration: task.duration_max ?? 5 }))
+  const scheduled = new Map()
+  const pending = new Set(tasks.map((task) => task.id))
+  const taskById = new Map(tasks.map((task) => [task.id, task]))
+
+  for (let pass = 0; pass < tasks.length + 1 && pending.size; pass += 1) {
+    tasks.forEach((task) => {
+      if (!pending.has(task.id)) return
+      const dependencies = task.depends_on || []
+      if (dependencies.some((dependency) => !scheduled.has(dependency.task_id))) return
+      let start = typeof task.start === 'number' ? task.start : 0
+      dependencies.forEach((dependency) => {
+        const prerequisite = scheduled.get(dependency.task_id)
+        if (dependency.relationship === 'start-to-start') start = Math.max(start, prerequisite.start)
+        if (dependency.relationship === 'finish-to-start') start = Math.max(start, prerequisite.end)
+        if (dependency.relationship === 'finish-to-finish') start = Math.max(start, prerequisite.end - task.chart_duration)
+      })
+      scheduled.set(task.id, { start, end: start + task.chart_duration })
+      pending.delete(task.id)
+    })
+  }
+
+  pending.forEach((taskId) => {
+    const task = taskById.get(taskId)
+    scheduled.set(taskId, { start: 0, end: task.chart_duration })
+  })
+  return tasks.map((task) => ({ ...task, ...scheduled.get(task.id) }))
+}
+
+function TimelineView({ recipe }) {
+  const timeline = recipe.timeline
+  if (!timeline) {
+    return (
+      <section className="timeline-panel timeline-empty">
+        <div className="section-kicker">Parallel prep</div>
+        <h2>Timeline unavailable</h2>
+        <p>This recipe does not yet include timing and parallel-prep guidance. Matrix and Traditional views are still available.</p>
+      </section>
+    )
+  }
+
+  const scheduledTasks = scheduleTimelineTasks(timeline)
+  const lanes = [...new Set(scheduledTasks.map((task) => task.lane))]
+  const endTime = Math.max(...scheduledTasks.map((task) => task.end), 1)
+  const timelineColumns = Math.ceil(endTime / 5)
+  const scaleMarks = Array.from({ length: timelineColumns + 1 }, (_, index) => index * 5).filter((minute) => minute <= endTime)
+  const durationLabel = (task) => task.duration_min === null || task.duration_min === undefined
+    ? 'timing unspecified'
+    : task.duration_min === task.duration_max
+    ? `${task.duration_min} min`
+    : `${task.duration_min}–${task.duration_max} min`
+
+  return (
+    <section className="timeline-panel">
+      <div className="timeline-caption">
+        <div>
+          <div className="section-kicker">Parallel prep</div>
+          <h2>Timeline</h2>
+          <p>{timeline.summary}</p>
+        </div>
+        <div className="timeline-legend"><span className="legend-swatch" /> Suggested prep</div>
+      </div>
+      <div className="timeline-chart" style={{ '--timeline-columns': timelineColumns }}>
+        <div className="timeline-scale">
+          {scaleMarks.map((minute) => <span style={{ gridColumn: Math.floor(minute / 5) + 1 }} key={minute}>{minute}m</span>)}
+        </div>
+        <div className="timeline-lanes">
+          {lanes.map((lane) => (
+            <div className="timeline-lane" key={lane}>
+              <div className="timeline-lane-label">{lane}</div>
+              <div className="timeline-track">
+                {scheduledTasks.filter((task) => task.lane === lane).map((task) => (
+                  <article
+                    className={`timeline-task ${task.inferred ? 'inferred' : ''}`}
+                    style={{ gridColumn: `${Math.ceil(task.start / 5) + 1} / span ${Math.max(1, Math.ceil(task.chart_duration / 5))}` }}
+                    key={task.id}
+                  >
+                    <strong>{task.label}</strong>
+                    <small>{durationLabel(task)}{task.inferred ? ' · suggested' : ''}</small>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      {timeline.notes?.map((note) => <p className="timeline-note" key={note}>{note}</p>)}
+    </section>
+  )
+}
+
 function App() {
   const [recipe, setRecipe] = useState(null)
   const [completedThrough, setCompletedThrough] = useState(0)
@@ -484,6 +576,7 @@ function App() {
         {recipe && <nav className="view-tabs" aria-label="Recipe views">
           <button type="button" className={activeView === 'matrix' ? 'active' : ''} aria-selected={activeView === 'matrix'} onClick={() => setActiveView('matrix')}>Matrix view</button>
           <button type="button" className={activeView === 'traditional' ? 'active' : ''} aria-selected={activeView === 'traditional'} onClick={() => setActiveView('traditional')}>Traditional recipe</button>
+          <button type="button" className={activeView === 'timeline' ? 'active' : ''} aria-selected={activeView === 'timeline'} onClick={() => setActiveView('timeline')}>Timeline</button>
         </nav>}
       </div>
 
@@ -499,6 +592,7 @@ function App() {
         <RecipeMatrix recipe={recipe} completedThrough={completedThrough} onComplete={setCompletedThrough} onUndo={() => setCompletedThrough((step) => Math.max(0, step - 1))} />
       </section>}
       {recipe && activeView === 'traditional' && <TraditionalRecipe recipe={recipe} />}
+      {recipe && activeView === 'timeline' && <TimelineView recipe={recipe} />}
 
       {recipe && <Notes recipe={recipe} />}
       {recipe?.validation.needs_review && <div className="review-warning">Review needed: {recipe.validation.issues.join(' ')}</div>}

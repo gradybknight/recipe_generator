@@ -25,6 +25,22 @@
     { "id": "step-5", "order": 5, "text": "Remove from heat and stir in 1 tsp vanilla extract. For a silky result, strain the custard through a fine mesh sieve into a clean bowl.", "card_label": "Add vanilla and strain", "card_detail": "off heat · strain for a silky result", "inputs": [{ "type": "component", "id": "component-custard" }, { "type": "ingredient", "id": "ingredient-vanilla" }], "outputs": [{ "type": "component", "id": "component-custard" }] },
     { "id": "step-6", "order": 6, "text": "Pour into small ramekins or glasses. Let cool to room temperature, then cover and chill for at least 2 hours.", "card_label": "Pour and chill", "card_detail": "cool to room temperature · chill at least 2 hours", "inputs": [{ "type": "component", "id": "component-custard" }], "outputs": [{ "type": "component", "id": "component-custard" }] }
   ],
+  "timeline": {
+    "summary": "Prepare the ramekins and toppings while the custard cools, then chill before serving.",
+    "tasks": [
+      { "id": "timeline-dry", "label": "Whisk dry ingredients", "lane": "Custard", "start": 0, "duration_min": 2, "duration_max": 2, "source_step_ids": ["step-1"], "inferred": true },
+      { "id": "timeline-heat", "label": "Heat cocoa and cream", "lane": "Custard", "start": 2, "duration_min": 5, "duration_max": 5, "source_step_ids": ["step-2"], "inferred": true },
+      { "id": "timeline-temper", "label": "Temper egg yolks", "lane": "Custard", "start": 7, "duration_min": 3, "duration_max": 3, "source_step_ids": ["step-3"], "inferred": true },
+      { "id": "timeline-cook", "label": "Cook custard", "lane": "Custard", "start": 10, "duration_min": 5, "duration_max": 8, "source_step_ids": ["step-4"], "inferred": false },
+      { "id": "timeline-strain", "label": "Add vanilla and strain", "lane": "Custard", "start": 18, "duration_min": 3, "duration_max": 3, "source_step_ids": ["step-5"], "inferred": true },
+      { "id": "timeline-chill", "label": "Pour and chill", "lane": "Custard", "start": 21, "duration_min": 120, "duration_max": 120, "source_step_ids": ["step-6"], "inferred": false },
+      { "id": "timeline-toppings", "label": "Prepare optional toppings", "lane": "Serving prep", "start": 21, "duration_min": 5, "duration_max": 8, "source_step_ids": ["step-6"], "inferred": true }
+    ],
+    "notes": [
+      "Suggested active-task durations are estimates; the custard cook and minimum chill duration come from the recipe.",
+      "The long chill is shown on the chart but does not require continuous attention."
+    ]
+  },
   "notes": [
     { "id": "note-1", "text": "This stovetop version is faster and just as luscious — silky, rich, and perfect for a quick dessert when you don’t want to turn on the oven.", "related_ids": ["step-6"] }
   ],

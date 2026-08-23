@@ -37,6 +37,20 @@
     { "id": "step-5", "order": 5, "text": "Taste and adjust salt, pepper, lemon, or honey if needed.", "card_label": "Taste and adjust", "card_detail": "salt, pepper, lemon, or honey as needed", "inputs": [{ "type": "component", "id": "component-main" }, { "type": "ingredient", "id": "ingredient-salt-taste" }, { "type": "ingredient", "id": "ingredient-pepper" }, { "type": "ingredient", "id": "ingredient-lemon-juice" }, { "type": "ingredient", "id": "ingredient-honey" }], "outputs": [{ "type": "component", "id": "component-main" }] },
     { "id": "step-6", "order": 6, "text": "Refrigerate for 20–30 minutes before serving for best flavor.", "card_label": "Chill before serving", "card_detail": "20–30 min", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] }
   ],
+  "timeline": {
+    "summary": "Salt the cucumbers first, then whisk the dressing while the salad base is assembled.",
+    "tasks": [
+      { "id": "timeline-cucumber", "label": "Salt and dry cucumbers", "lane": "Salad base", "start": 0, "duration_min": 10, "duration_max": 10, "source_step_ids": ["step-1"], "inferred": false },
+      { "id": "timeline-base", "label": "Toss salad base", "lane": "Salad base", "start": 10, "duration_min": 5, "duration_max": 5, "source_step_ids": ["step-2"], "inferred": true },
+      { "id": "timeline-dressing", "label": "Whisk dressing", "lane": "Dressing", "start": 0, "duration_min": 3, "duration_max": 3, "source_step_ids": ["step-3"], "inferred": true },
+      { "id": "timeline-fold", "label": "Fold in dressing", "lane": "Dressing", "start": 15, "duration_min": 2, "duration_max": 2, "source_step_ids": ["step-4"], "inferred": true },
+      { "id": "timeline-finish", "label": "Taste, adjust, and chill", "lane": "Dressing", "start": 17, "duration_min": 20, "duration_max": 30, "source_step_ids": ["step-5", "step-6"], "inferred": false }
+    ],
+    "notes": [
+      "Suggested active-task durations are estimates; the cucumber salting and chill durations come from the recipe.",
+      "Whisk the dressing during the cucumber salting time."
+    ]
+  },
   "notes": [
     { "id": "note-1", "text": "Estimated Nutrition (approximate) — For the full salad: Calories: ~1,450 kcal; Protein: ~130 g; Fat: ~80 g; Carbohydrates: ~50 g.", "related_ids": [] },
     { "id": "note-2", "text": "If divided into 4 servings: ~360 kcal per serving; ~32 g protein per serving.", "related_ids": [] }

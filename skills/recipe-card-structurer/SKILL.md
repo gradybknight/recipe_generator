@@ -5,7 +5,7 @@ description: Convert a recipe in the user's standard plain-text format into fait
 
 # Recipe Card Structurer
 
-Convert the supplied standard-format recipe into the JSON contract in [schema.md](references/schema.md). The result is intended to be consumed by a client-side recipe-card renderer, so use stable IDs and explicit relationships rather than prose that the renderer must interpret.
+Convert the supplied standard-format recipe into the JSON contract in [schema.md](references/schema.md). The result is intended to be consumed by a client-side recipe-card renderer, so use stable IDs and explicit relationships rather than prose that the renderer must interpret. Generate the recipe card and timeline data in the same JSON object so the renderer can show both sequential and parallel work.
 
 ## Output rules
 
@@ -19,6 +19,43 @@ Convert the supplied standard-format recipe into the JSON contract in [schema.md
 8. Represent “about ¾,” “as needed,” “to taste,” optional ingredients, and ranges as display text or quantity qualifiers; never turn them into false precision.
 9. Preserve notes separately. A note may reference an ingredient or step, but do not silently convert advice into an instruction.
 10. Set `validation.needs_review` to `true` whenever parsing required an assumption, a relationship is ambiguous, or the source contains an unsupported structure. Otherwise set it to `false`.
+11. Always generate a `timeline` object, even when the source does not provide enough timing information for a complete schedule. Use `null` for unavailable durations and explain the limitation in `timeline.notes` and `validation.issues` when it affects usefulness.
+
+## Timeline generation
+
+The timeline is a dependency-aware preparation plan, not a second copy of the step list. Create one task for each meaningful activity that can occupy time or block another activity. You may group adjacent source steps only when they form one continuous activity with the same dependencies and timing; do not group steps when doing so would hide a cook, rest, chill, hold, or other opportunity for parallel work.
+
+Each timeline task must include:
+
+- A stable `id`, human-readable `label`, and `lane` such as `Chicken`, `Sauce`, `Oven`, or `Salad prep`.
+- `source_step_ids` linking it to every source step it represents.
+- `duration_min` and `duration_max`. Use source-backed values when the recipe states a duration or range. If no duration is stated, use `null`; do not invent a duration from general cooking knowledge.
+- `duration_source`: `"source"` for an explicit source duration, `"unspecified"` when the source provides none, or `"inferred"` only when the user explicitly authorizes estimated durations.
+- `inferred`: `true` for a suggested parallel-prep task or any task whose interpretation is not explicit in the source; otherwise `false`.
+- `depends_on`, an array of `{ "task_id": "...", "relationship": "finish-to-start" | "start-to-start" | "finish-to-finish" }` objects.
+
+Use dependencies to encode real process constraints:
+
+- `finish-to-start`: the dependent task cannot begin until the prerequisite finishes. Use this for actions such as reducing a sauce made from cooked meat, slicing food after resting, or serving after chilling.
+- `start-to-start`: the dependent task may begin when the prerequisite begins. Use this for independent prep that can happen while a cook, bake, or simmer is underway.
+- `finish-to-finish`: the dependent task should finish no earlier than the prerequisite. Use sparingly for coordinated finishing work.
+
+Do not infer parallelism merely because tasks have different lanes. A task may overlap another only when its ingredients, equipment, and outputs are independent or the source clearly permits concurrent work. When a later task consumes a result from an earlier task, add an explicit dependency even if both tasks use the same broad component. Prefer a specific timeline dependency over relying on reused component IDs.
+
+The timeline may include an inferred task for preparation explicitly implied by an ingredient or step, such as chopping cucumber before mixing a salad. If its duration is not stated, keep the duration fields `null`, mark it `inferred: true`, and report that the task timing is unspecified. Do not turn an inferred task into a false precise schedule.
+
+`timeline.summary` should describe the main scheduling opportunity in one sentence. `timeline.notes` should explain source-vs-inferred timing and any meaningful uncertainty. The renderer calculates task start positions from durations and dependencies; do not add hand-authored absolute start times to the contract.
+
+Before finalizing the JSON, perform a timeline cook-through pass. Read the tasks as a physical sequence rather than as extracted labels and numbers:
+
+1. For each task, identify what is physically available at its start, what it produces, and what equipment or resource it occupies.
+2. Trace every task that consumes a cooked, rested, chilled, reduced, mixed, or otherwise transformed result back to the task that produces that result.
+3. Add a `finish-to-start` dependency whenever the prerequisite result must be complete before the next task can begin. Do not let different lanes imply parallelism when the food or equipment is still shared.
+4. Add `start-to-start` only for genuinely independent work that can begin while another task is active, such as chopping salad ingredients while chicken cooks.
+5. Walk the resulting schedule in order and ask: “Could a person actually do these tasks at these times with the stated ingredients, equipment, and intermediate results?” Correct any overlap that would require an unavailable result, an occupied piece of equipment, or an impossible physical transition.
+6. Check the critical path separately from optional parallel work. A sauce made from broiled chicken, for example, must start after broiling and doneness checking finish even if the sauce has its own lane.
+
+This reasoning pass is required even when all durations and step numbers were extracted correctly. If the physical relationship is ambiguous, preserve the ambiguity in `validation.issues` instead of silently scheduling the tasks in parallel.
 
 Every step with a temperature, time, cooking mode, quantity, conditional, or doneness/safety cue must include a concise `card_detail` that preserves that critical information for compact visual rendering. Use `null` only when the step has no such detail. Never infer a missing temperature or time. During validation, compare `text` against `card_detail`; if a temperature, time, mode, quantity, or safety/doneness cue appears in `text` but is absent from `card_detail`, set `validation.needs_review` to `true` and report the omission in `validation.issues`.
 
@@ -38,6 +75,6 @@ Each step input is either `{ "type": "ingredient", "id": "..." }` or `{ "type": 
 
 ## Validation
 
-Check that every referenced ID exists, step order starts at 1 and is sequential, every ingredient belongs to a component, `row_order` is unique and sequential, every `first_use_step` points to a valid step or is `null`, and every listed instruction is represented by a step. Put any failure in `validation.issues` using plain language. Do not repair the source silently.
+Check that every referenced ID exists, step order starts at 1 and is sequential, every ingredient belongs to a component, `row_order` is unique and sequential, every `first_use_step` points to a valid step or is `null`, every listed instruction is represented by a step, every timeline task has at least one valid `source_step_id`, every timeline dependency references an existing task, and every dependency relationship is one of the supported values. Put any failure in `validation.issues` using plain language. Do not repair the source silently.
 
 For the full JSON shape and a worked example, read [schema.md](references/schema.md).

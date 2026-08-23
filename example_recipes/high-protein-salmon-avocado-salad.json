@@ -28,6 +28,21 @@
     { "id": "step-9", "order": 9, "text": "Taste and adjust with additional salt, black pepper, lemon juice, or hot sauce.", "card_label": "Taste and adjust", "card_detail": "additional salt, pepper, lemon juice, or hot sauce", "inputs": [{ "type": "component", "id": "component-main" }, { "type": "ingredient", "id": "ingredient-salt" }, { "type": "ingredient", "id": "ingredient-pepper" }, { "type": "ingredient", "id": "ingredient-lemon-juice" }, { "type": "ingredient", "id": "ingredient-hot-sauce" }], "outputs": [{ "type": "component", "id": "component-main" }] },
     { "id": "step-10", "order": 10, "text": "Serve immediately or refrigerate until chilled.", "card_label": "Serve or chill", "card_detail": "serve immediately or refrigerate until chilled", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] }
   ],
+  "timeline": {
+    "summary": "Prep the salad ingredients while the salmon cooks and rests.",
+    "tasks": [
+      { "id": "timeline-season", "label": "Season salmon", "lane": "Salmon", "start": 0, "duration_min": 3, "duration_max": 3, "source_step_ids": ["step-2"], "inferred": true },
+      { "id": "timeline-cook", "label": "Cook salmon", "lane": "Salmon", "start": 3, "duration_min": 10, "duration_max": 15, "source_step_ids": ["step-4"], "inferred": false },
+      { "id": "timeline-rest", "label": "Rest salmon", "lane": "Salmon", "start": 18, "duration_min": 5, "duration_max": 5, "source_step_ids": ["step-5"], "inferred": false },
+      { "id": "timeline-flake", "label": "Flake salmon", "lane": "Salmon", "start": 23, "duration_min": 3, "duration_max": 3, "source_step_ids": ["step-6"], "inferred": true },
+      { "id": "timeline-prep-salad", "label": "Dice avocado and cucumber; chop dill", "lane": "Salad prep", "start": 3, "duration_min": 5, "duration_max": 8, "source_step_ids": ["step-7"], "inferred": true },
+      { "id": "timeline-mix", "label": "Mix, taste, and serve", "lane": "Salad prep", "start": 26, "duration_min": 4, "duration_max": 4, "source_step_ids": ["step-8", "step-9", "step-10"], "inferred": true }
+    ],
+    "notes": [
+      "Suggested prep durations are estimates; the salmon cook and rest durations come from the recipe.",
+      "If cooking takes the full 15 minutes, shift the later salmon tasks by 5 minutes."
+    ]
+  },
   "notes": [
     { "id": "note-1", "text": "For a firmer, fully opaque salmon: cook to 145°F / 63°C.", "related_ids": ["step-4"] },
     { "id": "note-2", "text": "I increased the starting salmon from the original 240 g cooked salmon to about 280 g raw, accounting for moisture loss during cooking.", "related_ids": ["ingredient-salmon", "step-4"] },

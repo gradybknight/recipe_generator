@@ -36,6 +36,22 @@
     { "id": "step-14", "order": 14, "text": "Optional finish: Switch to 0% steam / broil (or 220°C dry) for 3–5 minutes to brown the top", "card_label": "Optional brown-top finish", "card_detail": "0% steam / broil · 220°C dry · 3–5 min", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
     { "id": "step-15", "order": 15, "text": "Rest 10 minutes before slicing", "card_label": "Rest before slicing", "card_detail": "10 min", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] }
   ],
+  "timeline": {
+    "summary": "Prepare the spinach filling and egg mixture in parallel while the steam oven heats.",
+    "tasks": [
+      { "id": "timeline-oven", "label": "Preheat steam oven", "lane": "Oven", "start": 0, "duration_min": 10, "duration_max": 10, "source_step_ids": ["step-1"], "inferred": true },
+      { "id": "timeline-filling", "label": "Cook spinach filling", "lane": "Filling", "start": 0, "duration_min": 20, "duration_max": 23, "source_step_ids": ["step-3", "step-4", "step-5", "step-6", "step-7"], "inferred": true },
+      { "id": "timeline-eggs", "label": "Whisk egg mixture", "lane": "Egg mixture", "start": 10, "duration_min": 3, "duration_max": 3, "source_step_ids": ["step-8"], "inferred": true },
+      { "id": "timeline-assemble", "label": "Layer filling, cheese, and eggs", "lane": "Assembly", "start": 23, "duration_min": 5, "duration_max": 5, "source_step_ids": ["step-2", "step-9", "step-10", "step-11"], "inferred": true },
+      { "id": "timeline-bake", "label": "Bake frittata", "lane": "Oven", "start": 28, "duration_min": 25, "duration_max": 30, "source_step_ids": ["step-12", "step-13"], "inferred": false },
+      { "id": "timeline-brown", "label": "Optional brown-top finish", "lane": "Oven", "start": 58, "duration_min": 3, "duration_max": 5, "source_step_ids": ["step-14"], "inferred": false },
+      { "id": "timeline-rest", "label": "Rest before slicing", "lane": "Assembly", "start": 63, "duration_min": 10, "duration_max": 10, "source_step_ids": ["step-15"], "inferred": false }
+    ],
+    "notes": [
+      "Suggested prep durations are estimates; bake, brown-top, and rest durations come from the recipe.",
+      "The egg mixture can be whisked while the spinach filling cools."
+    ]
+  },
   "notes": [
     { "id": "note-1", "text": "If your nacho blend includes pepper jack or jalapeño, skip paprika (already enough flavor)", "related_ids": ["ingredient-cheese", "ingredient-paprika"] },
     { "id": "note-2", "text": "For a firmer, more sliceable result (meal prep style): reduce milk to 150 g", "related_ids": ["ingredient-milk"] },

@@ -49,6 +49,22 @@
     { "id": "step-21", "order": 21, "text": "Slice the roulades crosswise into ½–¾-inch coins.", "card_label": "Slice roulades", "card_detail": "½–¾-inch coins", "inputs": [{ "type": "component", "id": "component-roulade" }], "outputs": [{ "type": "component", "id": "component-roulade" }] },
     { "id": "step-22", "order": 22, "text": "Spoon the sauce onto the plates and arrange the chicken slices over it.", "card_label": "Plate chicken over sauce", "card_detail": null, "inputs": [{ "type": "component", "id": "component-sauce" }, { "type": "component", "id": "component-roulade" }], "outputs": [{ "type": "component", "id": "component-plated" }] }
   ],
+  "timeline": {
+    "summary": "Assemble and seal the roulades, then use the long sous vide cook and chill as the main timing anchors.",
+    "tasks": [
+      { "id": "timeline-bath", "label": "Heat sous vide bath", "lane": "Roulade", "start": 0, "duration_min": 20, "duration_max": 20, "source_step_ids": ["step-1"], "inferred": true },
+      { "id": "timeline-assemble", "label": "Prepare, fill, wrap, and seal roulades", "lane": "Roulade", "start": 0, "duration_min": 35, "duration_max": 45, "source_step_ids": ["step-2", "step-3", "step-4", "step-5", "step-6", "step-7"], "inferred": true },
+      { "id": "timeline-cook", "label": "Cook sous vide", "lane": "Sous vide", "start": 45, "duration_min": 150, "duration_max": 150, "source_step_ids": ["step-8"], "inferred": false },
+      { "id": "timeline-chill", "label": "Chill in ice-water bath", "lane": "Sous vide", "start": 195, "duration_min": 20, "duration_max": 30, "source_step_ids": ["step-9"], "inferred": false },
+      { "id": "timeline-sauce", "label": "Reserve juices and make sauce", "lane": "Sauce", "start": 225, "duration_min": 15, "duration_max": 20, "source_step_ids": ["step-10", "step-15", "step-16", "step-17", "step-18", "step-19", "step-20"], "inferred": true },
+      { "id": "timeline-sear", "label": "Dry and sear roulades", "lane": "Roulade", "start": 225, "duration_min": 12, "duration_max": 18, "source_step_ids": ["step-11", "step-12", "step-13", "step-14"], "inferred": true },
+      { "id": "timeline-plate", "label": "Slice and plate", "lane": "Finishing", "start": 245, "duration_min": 8, "duration_max": 8, "source_step_ids": ["step-21", "step-22"], "inferred": true }
+    ],
+    "notes": [
+      "Suggested assembly, searing, and sauce durations are estimates; the sous vide cook and ice-bath ranges come from the recipe.",
+      "The sauce work can begin while the roulades are being dried and seared."
+    ]
+  },
   "notes": [
     { "id": "note-1", "text": "The original recipe's 165°F for 2½ hours will produce very thoroughly cooked chicken with a relatively firm texture. It is safe, but for sous vide chicken breast I would personally use 150°F / 65.5°C for about 2½ hours instead. You still get pasteurized chicken, but it will be noticeably juicier and more tender. The roulade structure and ice-bath/searing method remain the same.", "related_ids": ["step-1", "step-8"] },
     { "id": "note-2", "text": "I would also not skip the ice bath here. Normally I wouldn't chill sous vide chicken before searing, but in this particular recipe it serves a structural purpose: it firms the mozzarella-filled roulade and sets the prosciutto so you can aggressively brown the exterior without the chicken falling apart or overcooking.", "related_ids": ["step-9", "step-13"] },

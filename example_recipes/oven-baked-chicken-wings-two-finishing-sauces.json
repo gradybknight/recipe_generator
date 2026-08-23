@@ -593,6 +593,23 @@
       "outputs": []
     }
   ],
+  "timeline": {
+    "summary": "Prepare both finishing sauces during the longer wing bake, then toss the cooked wings separately.",
+    "tasks": [
+      { "id": "timeline-setup", "label": "Preheat, line pans, and dry wings", "lane": "Wings", "start": 0, "duration_min": 12, "duration_max": 12, "source_step_ids": ["step-1", "step-2", "step-3"], "inferred": true },
+      { "id": "timeline-season", "label": "Season and arrange wings", "lane": "Wings", "start": 12, "duration_min": 8, "duration_max": 8, "source_step_ids": ["step-4", "step-5", "step-6"], "inferred": true },
+      { "id": "timeline-bake", "label": "Bake and flip wings", "lane": "Wings", "start": 20, "duration_min": 40, "duration_max": 45, "source_step_ids": ["step-7", "step-8", "step-9"], "inferred": false },
+      { "id": "timeline-sriracha", "label": "Make Sriracha-butter sauce", "lane": "Sauces", "start": 40, "duration_min": 3, "duration_max": 3, "source_step_ids": ["step-11"], "inferred": true },
+      { "id": "timeline-honey", "label": "Make honey-garlic glaze", "lane": "Sauces", "start": 43, "duration_min": 3, "duration_max": 4, "source_step_ids": ["step-12", "step-13"], "inferred": false },
+      { "id": "timeline-crisp", "label": "Crisp further if needed", "lane": "Wings", "start": 65, "duration_min": 5, "duration_max": 8, "source_step_ids": ["step-10"], "inferred": false },
+      { "id": "timeline-toss", "label": "Divide and toss with sauces", "lane": "Finishing", "start": 73, "duration_min": 5, "duration_max": 5, "source_step_ids": ["step-14", "step-15", "step-16"], "inferred": true },
+      { "id": "timeline-set", "label": "Set coating if desired", "lane": "Finishing", "start": 78, "duration_min": 3, "duration_max": 5, "source_step_ids": ["step-17"], "inferred": false }
+    ],
+    "notes": [
+      "Suggested setup, sauce, and tossing durations are estimates; the stated bake and sauce simmer ranges are preserved.",
+      "The sauces can be prepared during the wing bake."
+    ]
+  },
   "notes": [
     {
       "id": "note-1",
