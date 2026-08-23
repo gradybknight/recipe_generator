@@ -1,0 +1,4 @@
+interface:
+  display_name: "Recipe Card Structurer"
+  short_description: "Turn standard recipes into card JSON"
+  default_prompt: "Use $recipe-card-structurer to convert this standard-format recipe into validated recipe-card JSON."
