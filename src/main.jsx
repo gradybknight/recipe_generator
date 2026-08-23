@@ -431,7 +431,17 @@ function scheduleTimelineTasks(timeline) {
 }
 
 function TimelineView({ recipe }) {
+  const [expandedTaskId, setExpandedTaskId] = useState(null)
   const timeline = recipe.timeline
+
+  useEffect(() => {
+    const closeExpandedTask = (event) => {
+      if (!event.target.closest('.timeline-task')) setExpandedTaskId(null)
+    }
+    document.addEventListener('pointerdown', closeExpandedTask)
+    return () => document.removeEventListener('pointerdown', closeExpandedTask)
+  }, [])
+
   if (!timeline) {
     return (
       <section className="timeline-panel timeline-empty">
@@ -468,18 +478,33 @@ function TimelineView({ recipe }) {
           {scaleMarks.map((minute) => <span style={{ gridColumn: Math.floor(minute / 5) + 1 }} key={minute}>{minute}m</span>)}
         </div>
         <div className="timeline-lanes">
-          {lanes.map((lane) => (
+          {lanes.map((lane, laneIndex) => (
             <div className="timeline-lane" key={lane}>
               <div className="timeline-lane-label">{lane}</div>
               <div className="timeline-track">
                 {scheduledTasks.filter((task) => task.lane === lane).map((task) => (
                   <article
-                    className={`timeline-task ${task.inferred ? 'inferred' : ''}`}
+                    className={`timeline-task ${task.inferred ? 'inferred' : ''} ${expandedTaskId === task.id ? 'expanded' : ''} ${laneIndex === lanes.length - 1 ? 'tooltip-above' : ''}`}
                     style={{ gridColumn: `${Math.ceil(task.start / 5) + 1} / span ${Math.max(1, Math.ceil(task.chart_duration / 5))}` }}
+                    role="button"
+                    tabIndex="0"
+                    aria-label={task.label}
+                    aria-expanded={expandedTaskId === task.id}
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      setExpandedTaskId((currentId) => currentId === task.id ? null : task.id)
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault()
+                        setExpandedTaskId((currentId) => currentId === task.id ? null : task.id)
+                      }
+                    }}
                     key={task.id}
                   >
                     <strong>{task.label}</strong>
                     <small>{durationLabel(task)}{task.inferred ? ' · suggested' : ''}</small>
+                    <span className="timeline-task-tooltip">{task.label}</span>
                   </article>
                 ))}
               </div>
