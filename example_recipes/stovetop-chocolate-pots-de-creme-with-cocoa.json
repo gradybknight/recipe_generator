@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "title": "Stovetop Chocolate Pots de Crème (with Cocoa)",
+  "servings": { "display": "4 small servings" },
+  "components": [
+    { "id": "component-custard", "name": "Chocolate Custard" },
+    { "id": "component-toppings", "name": "Optional toppings" }
+  ],
+  "ingredients": [
+    { "id": "ingredient-cocoa", "component_id": "component-custard", "row_order": 1, "first_use_step": 1, "display": "1/4 cup unsweetened cocoa powder", "quantity": { "value": 0.25, "min": null, "max": null, "unit": "cup", "display": "1/4 cup", "qualifier": "unsweetened" }, "name": "cocoa powder", "prep": null, "optional": false },
+    { "id": "ingredient-sugar", "component_id": "component-custard", "row_order": 2, "first_use_step": 1, "display": "1/3 cup sugar", "quantity": { "value": 0.333333, "min": null, "max": null, "unit": "cup", "display": "1/3 cup", "qualifier": null }, "name": "sugar", "prep": null, "optional": false },
+    { "id": "ingredient-salt", "component_id": "component-custard", "row_order": 3, "first_use_step": 1, "display": "Pinch of salt", "quantity": { "value": null, "min": null, "max": null, "unit": null, "display": "Pinch", "qualifier": "pinch" }, "name": "salt", "prep": null, "optional": false },
+    { "id": "ingredient-cream", "component_id": "component-custard", "row_order": 4, "first_use_step": 2, "display": "2 cups heavy cream", "quantity": { "value": 2, "min": null, "max": null, "unit": "cups", "display": "2 cups", "qualifier": "heavy" }, "name": "heavy cream", "prep": null, "optional": false },
+    { "id": "ingredient-egg-yolks", "component_id": "component-custard", "row_order": 5, "first_use_step": 3, "display": "4 egg yolks", "quantity": { "value": 4, "min": null, "max": null, "unit": "egg yolks", "display": "4", "qualifier": null }, "name": "egg yolks", "prep": null, "optional": false },
+    { "id": "ingredient-vanilla", "component_id": "component-custard", "row_order": 6, "first_use_step": 5, "display": "1 tsp vanilla extract", "quantity": { "value": 1, "min": null, "max": null, "unit": "tsp", "display": "1 tsp", "qualifier": null }, "name": "vanilla extract", "prep": null, "optional": false },
+    { "id": "ingredient-whipped-cream", "component_id": "component-toppings", "row_order": 7, "first_use_step": null, "display": "Lightly sweetened whipped cream", "quantity": { "value": null, "min": null, "max": null, "unit": null, "display": null, "qualifier": "lightly sweetened" }, "name": "whipped cream", "prep": null, "optional": true },
+    { "id": "ingredient-shaved-chocolate", "component_id": "component-toppings", "row_order": 8, "first_use_step": null, "display": "Shaved chocolate or cocoa nibs", "quantity": { "value": null, "min": null, "max": null, "unit": null, "display": null, "qualifier": null }, "name": "shaved chocolate or cocoa nibs", "prep": null, "optional": true },
+    { "id": "ingredient-sea-salt", "component_id": "component-toppings", "row_order": 9, "first_use_step": null, "display": "Sea salt flakes", "quantity": { "value": null, "min": null, "max": null, "unit": null, "display": null, "qualifier": null }, "name": "sea salt flakes", "prep": null, "optional": true }
+  ],
+  "steps": [
+    { "id": "step-1", "order": 1, "text": "In a medium saucepan (off heat), whisk together: 1/4 cup cocoa powder, 1/3 cup sugar, Pinch of salt.", "card_label": "Whisk dry ingredients", "card_detail": "off heat", "inputs": [{ "type": "ingredient", "id": "ingredient-cocoa" }, { "type": "ingredient", "id": "ingredient-sugar" }, { "type": "ingredient", "id": "ingredient-salt" }], "outputs": [{ "type": "component", "id": "component-custard" }] },
+    { "id": "step-2", "order": 2, "text": "Slowly whisk in 2 cups of heavy cream until smooth. Place the saucepan over medium heat and bring just to a simmer, whisking constantly. Do not let it boil. Once small bubbles appear around the edges, remove from heat.", "card_label": "Heat cocoa and cream", "card_detail": "medium heat · just simmer · do not boil", "inputs": [{ "type": "component", "id": "component-custard" }, { "type": "ingredient", "id": "ingredient-cream" }], "outputs": [{ "type": "component", "id": "component-custard" }] },
+    { "id": "step-3", "order": 3, "text": "In a separate bowl, whisk 4 egg yolks until smooth. Slowly drizzle in about 1/2 cup of the hot cocoa-cream mixture, whisking constantly to gently raise the temperature of the yolks.", "card_label": "Temper the egg yolks", "card_detail": "about 1/2 cup hot mixture · whisk constantly", "inputs": [{ "type": "ingredient", "id": "ingredient-egg-yolks" }, { "type": "component", "id": "component-custard" }], "outputs": [{ "type": "component", "id": "component-custard" }] },
+    { "id": "step-4", "order": 4, "text": "Gradually pour the tempered yolks back into the saucepan with the rest of the cocoa mixture, whisking continuously. Return the pan to low heat and stir constantly with a wooden spoon or silicone spatula for 5–8 minutes, until the mixture thickens enough to coat the back of the spoon (around 170–175°F / 77–80°C). Don’t let it boil.", "card_label": "Cook custard until thickened", "card_detail": "low heat · 5–8 min · 170–175°F / 77–80°C · do not boil", "inputs": [{ "type": "component", "id": "component-custard" }, { "type": "ingredient", "id": "ingredient-egg-yolks" }], "outputs": [{ "type": "component", "id": "component-custard" }] },
+    { "id": "step-5", "order": 5, "text": "Remove from heat and stir in 1 tsp vanilla extract. For a silky result, strain the custard through a fine mesh sieve into a clean bowl.", "card_label": "Add vanilla and strain", "card_detail": "off heat · strain for a silky result", "inputs": [{ "type": "component", "id": "component-custard" }, { "type": "ingredient", "id": "ingredient-vanilla" }], "outputs": [{ "type": "component", "id": "component-custard" }] },
+    { "id": "step-6", "order": 6, "text": "Pour into small ramekins or glasses. Let cool to room temperature, then cover and chill for at least 2 hours.", "card_label": "Pour and chill", "card_detail": "cool to room temperature · chill at least 2 hours", "inputs": [{ "type": "component", "id": "component-custard" }], "outputs": [{ "type": "component", "id": "component-custard" }] }
+  ],
+  "notes": [
+    { "id": "note-1", "text": "This stovetop version is faster and just as luscious — silky, rich, and perfect for a quick dessert when you don’t want to turn on the oven.", "related_ids": ["step-6"] }
+  ],
+  "validation": {
+    "needs_review": true,
+    "issues": ["Optional toppings are listed as a separate component but are not assigned to a specific instruction step."]
+  }
+}

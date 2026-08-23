@@ -1,0 +1,191 @@
+{
+  "schema_version": "1.0",
+  "title": "Sparkling Orange Espresso (Espresso Spritz)",
+  "servings": {
+    "display": "Not specified"
+  },
+  "components": [
+    {
+      "id": "component-main",
+      "name": "Main"
+    }
+  ],
+  "ingredients": [
+    {
+      "id": "ingredient-ice",
+      "component_id": "component-main",
+      "row_order": 1,
+      "first_use_step": 1,
+      "display": "Ice (enough to fill glass)",
+      "quantity": {
+        "value": null,
+        "min": null,
+        "max": null,
+        "unit": null,
+        "display": "Ice",
+        "qualifier": "enough to fill glass"
+      },
+      "name": "ice",
+      "prep": "enough to fill glass",
+      "optional": false
+    },
+    {
+      "id": "ingredient-orange-juice",
+      "component_id": "component-main",
+      "row_order": 2,
+      "first_use_step": 2,
+      "display": "120 g fresh orange juice (≈ 1 medium orange)",
+      "quantity": {
+        "value": 120,
+        "min": null,
+        "max": null,
+        "unit": "g",
+        "display": "120 g",
+        "qualifier": "≈ 1 medium orange"
+      },
+      "name": "fresh orange juice",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-sparkling-water",
+      "component_id": "component-main",
+      "row_order": 3,
+      "first_use_step": 3,
+      "display": "120 g sparkling water (chilled)",
+      "quantity": {
+        "value": 120,
+        "min": null,
+        "max": null,
+        "unit": "g",
+        "display": "120 g",
+        "qualifier": "chilled"
+      },
+      "name": "sparkling water",
+      "prep": "chilled",
+      "optional": false
+    },
+    {
+      "id": "ingredient-espresso",
+      "component_id": "component-main",
+      "row_order": 4,
+      "first_use_step": 4,
+      "display": "30–40 g espresso (1 shot)",
+      "quantity": {
+        "value": null,
+        "min": 30,
+        "max": 40,
+        "unit": "g",
+        "display": "30–40 g",
+        "qualifier": "1 shot"
+      },
+      "name": "espresso",
+      "prep": null,
+      "optional": false
+    }
+  ],
+  "steps": [
+    {
+      "id": "step-1",
+      "order": 1,
+      "text": "Fill a glass with ice.",
+      "card_label": "Fill glass with ice",
+      "card_detail": "enough ice to fill glass",
+      "inputs": [
+        { "type": "ingredient", "id": "ingredient-ice" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-main" }
+      ]
+    },
+    {
+      "id": "step-2",
+      "order": 2,
+      "text": "Pour in the fresh orange juice over the ice.",
+      "card_label": "Add orange juice",
+      "card_detail": "120 g fresh orange juice over ice",
+      "inputs": [
+        { "type": "ingredient", "id": "ingredient-orange-juice" },
+        { "type": "component", "id": "component-main" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-main" }
+      ]
+    },
+    {
+      "id": "step-3",
+      "order": 3,
+      "text": "Top with sparkling water and gently stir once to combine.",
+      "card_label": "Top with sparkling water",
+      "card_detail": "120 g chilled sparkling water; gently stir once",
+      "inputs": [
+        { "type": "ingredient", "id": "ingredient-sparkling-water" },
+        { "type": "component", "id": "component-main" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-main" }
+      ]
+    },
+    {
+      "id": "step-4",
+      "order": 4,
+      "text": "Brew a fresh shot of espresso.",
+      "card_label": "Brew espresso",
+      "card_detail": "30–40 g espresso (1 shot); brew fresh",
+      "inputs": [
+        { "type": "ingredient", "id": "ingredient-espresso" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-main" }
+      ]
+    },
+    {
+      "id": "step-5",
+      "order": 5,
+      "text": "Slowly pour the espresso over the top (to layer if possible).",
+      "card_label": "Layer espresso over top",
+      "card_detail": "pour slowly; layer if possible",
+      "inputs": [
+        { "type": "ingredient", "id": "ingredient-espresso" },
+        { "type": "component", "id": "component-main" }
+      ],
+      "outputs": [
+        { "type": "component", "id": "component-main" }
+      ]
+    },
+    {
+      "id": "step-6",
+      "order": 6,
+      "text": "Serve immediately without over-stirring (or lightly mix if you prefer it integrated).",
+      "card_label": "Serve immediately",
+      "card_detail": "serve immediately; do not over-stir, or lightly mix",
+      "inputs": [
+        { "type": "component", "id": "component-main" }
+      ],
+      "outputs": []
+    }
+  ],
+  "notes": [
+    {
+      "id": "note-1",
+      "text": "For more brightness: add a small squeeze of lemon (~5 g).",
+      "related_ids": ["step-2"]
+    },
+    {
+      "id": "note-2",
+      "text": "For a slightly sweeter version: add 5–10 g simple syrup to the orange juice before adding ice.",
+      "related_ids": ["step-2"]
+    },
+    {
+      "id": "note-3",
+      "text": "For better layering: pour espresso over the back of a spoon.",
+      "related_ids": ["step-5"]
+    }
+  ],
+  "validation": {
+    "needs_review": true,
+    "issues": [
+      "The source does not specify servings."
+    ]
+  }
+}
