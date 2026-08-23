@@ -38,18 +38,19 @@
     { "id": "step-6", "order": 6, "text": "Refrigerate for 20–30 minutes before serving for best flavor.", "card_label": "Chill before serving", "card_detail": "20–30 min", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] }
   ],
   "timeline": {
-    "summary": "Salt the cucumbers first, then whisk the dressing while the cucumbers release moisture before assembling the salad.",
+    "summary": "Prepare the salad vegetables and whisk the dressing while the salted cucumbers rest, then assemble once both are ready.",
     "tasks": [
-      { "id": "timeline-cucumber", "label": "Salt and dry cucumbers", "lane": "Salad base", "duration_min": 10, "duration_max": 10, "duration_source": "source", "source_step_ids": ["step-1"], "inferred": false, "depends_on": [] },
+      { "id": "timeline-cucumber", "label": "Dice, salt, and rest cucumbers", "lane": "Salad prep", "duration_min": 10, "duration_max": 10, "duration_source": "source", "source_step_ids": ["step-1"], "inferred": true, "depends_on": [] },
+      { "id": "timeline-prep-salad", "label": "Chop greens, herbs, onion, and pistachios", "lane": "Salad prep", "duration_min": null, "duration_max": null, "duration_source": "unspecified", "source_step_ids": ["step-2"], "inferred": true, "depends_on": [] },
       { "id": "timeline-dressing", "label": "Whisk dressing", "lane": "Dressing", "duration_min": null, "duration_max": null, "duration_source": "unspecified", "source_step_ids": ["step-3"], "inferred": false, "depends_on": [] },
-      { "id": "timeline-base", "label": "Toss salad base", "lane": "Salad base", "duration_min": null, "duration_max": null, "duration_source": "unspecified", "source_step_ids": ["step-2"], "inferred": false, "depends_on": [{ "task_id": "timeline-cucumber", "relationship": "finish-to-start" }] },
+      { "id": "timeline-base", "label": "Toss salad base", "lane": "Salad prep", "duration_min": null, "duration_max": null, "duration_source": "unspecified", "source_step_ids": ["step-2"], "inferred": false, "depends_on": [{ "task_id": "timeline-cucumber", "relationship": "finish-to-start" }, { "task_id": "timeline-prep-salad", "relationship": "finish-to-start" }] },
       { "id": "timeline-fold", "label": "Fold in dressing", "lane": "Assembly", "duration_min": null, "duration_max": null, "duration_source": "unspecified", "source_step_ids": ["step-4"], "inferred": false, "depends_on": [{ "task_id": "timeline-base", "relationship": "finish-to-start" }, { "task_id": "timeline-dressing", "relationship": "finish-to-start" }] },
       { "id": "timeline-taste", "label": "Taste and adjust", "lane": "Finishing", "duration_min": null, "duration_max": null, "duration_source": "unspecified", "source_step_ids": ["step-5"], "inferred": false, "depends_on": [{ "task_id": "timeline-fold", "relationship": "finish-to-start" }] },
       { "id": "timeline-chill", "label": "Chill before serving", "lane": "Finishing", "duration_min": 20, "duration_max": 30, "duration_source": "source", "source_step_ids": ["step-6"], "inferred": false, "depends_on": [{ "task_id": "timeline-taste", "relationship": "finish-to-start" }] }
     ],
     "notes": [
-      "The cucumber rest and final chill duration come from the source. Dressing, salad-base, and folding durations are unspecified.",
-      "Whisking the dressing can happen while the cucumbers sit, but assembly must wait until the cucumbers are patted dry and the dressing is ready."
+      "The cucumber rest and final chill duration come from the source. Vegetable prep, dressing, salad-base, folding, and tasting durations are unspecified.",
+      "Chop the greens, herbs, onion, and pistachios and whisk the dressing while the cucumbers sit; assembly must wait until the cucumbers are patted dry and the dressing is ready."
     ]
   },
   "notes": [
@@ -57,6 +58,6 @@
   ],
   "validation": {
     "needs_review": true,
-    "issues": ["The source did not specify a serving count.", "Several timeline task durations are unspecified because the source did not provide them; the renderer should not invent precise durations."]
+    "issues": ["The source did not specify a serving count.", "Several timeline task durations are unspecified because the source did not provide them; the renderer should not invent precise durations.", "Vegetable and herb preparation was represented as inferred timeline work because the source lists the ingredients as already prepped but does not provide separate prep instructions."]
   }
 }

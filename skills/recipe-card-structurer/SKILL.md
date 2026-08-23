@@ -44,6 +44,10 @@ Do not infer parallelism merely because tasks have different lanes. A task may o
 
 The timeline may include an inferred task for preparation explicitly implied by an ingredient or step, such as chopping cucumber before mixing a salad. If its duration is not stated, keep the duration fields `null`, mark it `inferred: true`, and report that the task timing is unspecified. Do not turn an inferred task into a false precise schedule.
 
+Always assume the cook starts with whole, unprepared vegetables and fresh herbs unless the source explicitly says they were purchased or prepared ready to use. Every vegetable, herb, or other produce ingredient with a meaningful `prep` directive—such as diced, finely diced, chopped, sliced, julienned, torn, trimmed, or cut—must be represented by an inferred timeline task. Group compatible prep work into a single task when that makes the workflow clearer, for example `Dice cucumber, celery, and red onion`, and keep separate tasks when they have different dependencies or equipment needs. These tasks must use `duration_min: null`, `duration_max: null`, `duration_source: "unspecified"`, and `inferred: true` unless the source explicitly provides a preparation duration.
+
+Link each inferred prep task to the first step that consumes the prepared ingredients. Add a `finish-to-start` dependency from the prep task to that consuming step, unless the prep can safely happen during an independent hold, cook, or chill; in that case, use a `start-to-start` relationship with the independent task and retain the finish-to-start dependency before assembly. Do not let a recipe step such as `Toss salad` hide the hands-on vegetable preparation that must happen before it.
+
 `timeline.summary` should describe the main scheduling opportunity in one sentence. `timeline.notes` should explain source-vs-inferred timing and any meaningful uncertainty. The renderer calculates task start positions from durations and dependencies; do not add hand-authored absolute start times to the contract.
 
 Before finalizing the JSON, perform a timeline cook-through pass. Read the tasks as a physical sequence rather than as extracted labels and numbers:
@@ -54,6 +58,7 @@ Before finalizing the JSON, perform a timeline cook-through pass. Read the tasks
 4. Add `start-to-start` only for genuinely independent work that can begin while another task is active, such as chopping salad ingredients while chicken cooks.
 5. Walk the resulting schedule in order and ask: “Could a person actually do these tasks at these times with the stated ingredients, equipment, and intermediate results?” Correct any overlap that would require an unavailable result, an occupied piece of equipment, or an impossible physical transition.
 6. Check the critical path separately from optional parallel work. A sauce made from broiled chicken, for example, must start after broiling and doneness checking finish even if the sauce has its own lane.
+7. Check mise en place completeness: every produce or herb ingredient with a meaningful preparation directive has a corresponding timeline task, and that task occurs before the first step that needs the prepared ingredient.
 
 This reasoning pass is required even when all durations and step numbers were extracted correctly. If the physical relationship is ambiguous, preserve the ambiguity in `validation.issues` instead of silently scheduling the tasks in parallel.
 
