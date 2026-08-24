@@ -28,6 +28,30 @@ npm run build
 npm run preview
 ```
 
+## Testing
+
+The app is written in TypeScript; `npm run build` type-checks (`tsc -b`) before bundling. Run just the type-check with:
+
+```bash
+npm run typecheck
+```
+
+Unit tests (Vitest) cover the pure recipe logic in `src/App.tsx` — schema validation, matrix row/layout building, and timeline scheduling. The recipe JSON contract is typed in `src/types.ts`.
+
+```bash
+npm test          # run once
+npm run test:watch
+```
+
+End-to-end tests (Playwright) drive the app in a real browser and are the primary safety net for behavior — they exercise the rendered DOM rather than internals, so they keep working across refactors:
+
+```bash
+npm run test:e2e      # run headless against a dev server Playwright starts automatically
+npm run test:e2e:ui   # interactive UI mode
+```
+
+The first run needs browser binaries: `npx playwright install chromium`.
+
 ## Recipe JSON
 
 The renderer consumes the contract documented in [`skills/recipe-card-structurer/references/schema.md`](skills/recipe-card-structurer/references/schema.md). The structuring instructions for converting plain-text recipes are in [`skills/recipe-card-structurer/SKILL.md`](skills/recipe-card-structurer/SKILL.md).
