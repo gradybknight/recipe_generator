@@ -1,0 +1,136 @@
+{
+  "schema_version": "1.0",
+  "title": "Test Kitchen Skillet Hash",
+  "servings": { "display": "2" },
+  "components": [
+    { "id": "component-main", "name": "Main" },
+    { "id": "component-sauce", "name": "Sauce" }
+  ],
+  "ingredients": [
+    {
+      "id": "ingredient-potato",
+      "component_id": "component-main",
+      "row_order": 1,
+      "first_use_step": 1,
+      "display": "2 cups diced potato",
+      "quantity": { "value": 2, "min": null, "max": null, "unit": "cups", "display": "2 cups", "qualifier": null },
+      "name": "potato",
+      "prep": "diced",
+      "optional": false
+    },
+    {
+      "id": "ingredient-onion",
+      "component_id": "component-main",
+      "row_order": 2,
+      "first_use_step": 1,
+      "display": "1 onion, sliced",
+      "quantity": { "value": 1, "min": null, "max": null, "unit": null, "display": "1", "qualifier": null },
+      "name": "onion",
+      "prep": "sliced",
+      "optional": false
+    },
+    {
+      "id": "ingredient-egg",
+      "component_id": "component-main",
+      "row_order": 3,
+      "first_use_step": 3,
+      "display": "2 eggs",
+      "quantity": { "value": 2, "min": null, "max": null, "unit": null, "display": "2", "qualifier": null },
+      "name": "eggs",
+      "prep": null,
+      "optional": false
+    },
+    {
+      "id": "ingredient-hotsauce",
+      "component_id": "component-sauce",
+      "row_order": 4,
+      "first_use_step": 2,
+      "display": "1 tbsp hot sauce",
+      "quantity": { "value": 1, "min": null, "max": null, "unit": "tbsp", "display": "1 tbsp", "qualifier": null },
+      "name": "hot sauce",
+      "prep": null,
+      "optional": true
+    }
+  ],
+  "steps": [
+    {
+      "id": "step-1",
+      "order": 1,
+      "text": "Cook the potato and onion in a skillet over medium-high heat at 375°F until browned.",
+      "card_label": "Cook potato and onion",
+      "card_detail": "375°F until browned",
+      "inputs": [
+        { "type": "ingredient", "id": "ingredient-potato" },
+        { "type": "ingredient", "id": "ingredient-onion" }
+      ],
+      "outputs": [{ "type": "component", "id": "component-main" }]
+    },
+    {
+      "id": "step-2",
+      "order": 2,
+      "text": "Stir the hot sauce into the skillet mixture.",
+      "card_label": "Stir in hot sauce",
+      "card_detail": null,
+      "inputs": [
+        { "type": "component", "id": "component-main" },
+        { "type": "ingredient", "id": "ingredient-hotsauce" }
+      ],
+      "outputs": [{ "type": "component", "id": "component-main" }]
+    },
+    {
+      "id": "step-3",
+      "order": 3,
+      "text": "Crack the eggs on top and cook until the whites are set.",
+      "card_label": "Add eggs and finish",
+      "card_detail": "until whites are set",
+      "inputs": [
+        { "type": "component", "id": "component-main" },
+        { "type": "ingredient", "id": "ingredient-egg" }
+      ],
+      "outputs": [{ "type": "component", "id": "component-main" }]
+    }
+  ],
+  "timeline": {
+    "summary": "Dice the potatoes while the pan heats, then work through the skillet in sequence.",
+    "tasks": [
+      {
+        "id": "timeline-task-1",
+        "label": "Heat the skillet",
+        "lane": "Stovetop",
+        "source_step_ids": ["step-1"],
+        "duration_min": 3,
+        "duration_max": 3,
+        "duration_source": "source",
+        "inferred": false,
+        "depends_on": []
+      },
+      {
+        "id": "timeline-task-2",
+        "label": "Dice potato and onion",
+        "lane": "Prep",
+        "source_step_ids": ["step-1"],
+        "duration_min": 5,
+        "duration_max": 5,
+        "duration_source": "source",
+        "inferred": false,
+        "depends_on": [{ "task_id": "timeline-task-1", "relationship": "start-to-start" }]
+      },
+      {
+        "id": "timeline-task-3",
+        "label": "Cook potato and onion",
+        "lane": "Stovetop",
+        "source_step_ids": ["step-1"],
+        "duration_min": 10,
+        "duration_max": 10,
+        "duration_source": "source",
+        "inferred": false,
+        "depends_on": [{ "task_id": "timeline-task-2", "relationship": "finish-to-start" }]
+      }
+    ],
+    "notes": ["Prep can happen while the skillet preheats."]
+  },
+  "notes": [
+    { "id": "note-1", "text": "Swap potato for sweet potato if preferred.", "related_ids": ["ingredient-potato"] }
+  ],
+  "validation": { "needs_review": false, "issues": [] }
+}
