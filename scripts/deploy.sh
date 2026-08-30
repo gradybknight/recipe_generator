@@ -2,6 +2,10 @@
 
 set -e
 
+# AWS CLI v2 pipes output through a pager (less) by default; disable it so the
+# script runs unattended.
+export AWS_PAGER=""
+
 # --- Config ---
 # This deployment target is intentionally separate from the other demo sites.
 BUCKET_NAME=${1:-recipe.gradyknight.com}
