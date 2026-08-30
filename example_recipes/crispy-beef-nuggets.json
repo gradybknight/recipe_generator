@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "title": "Crispy Beef Nuggets",
+  "servings": { "display": "12–16" },
+  "components": [
+    { "id": "component-main", "name": "Main" }
+  ],
+  "ingredients": [
+    { "id": "ingredient-ground-beef", "component_id": "component-main", "row_order": 1, "first_use_step": 2, "display": "4 lb ground beef, preferably 90/10 or 93/7", "quantity": { "value": 4, "min": null, "max": null, "unit": "lb", "display": "4 lb", "qualifier": null }, "name": "ground beef", "prep": null, "optional": false },
+    { "id": "ingredient-kosher-salt", "component_id": "component-main", "row_order": 2, "first_use_step": 2, "display": "4 tsp kosher salt", "quantity": { "value": 4, "min": null, "max": null, "unit": "tsp", "display": "4 tsp", "qualifier": null }, "name": "kosher salt", "prep": null, "optional": false },
+    { "id": "ingredient-garlic-powder", "component_id": "component-main", "row_order": 3, "first_use_step": 2, "display": "2 tsp garlic powder", "quantity": { "value": 2, "min": null, "max": null, "unit": "tsp", "display": "2 tsp", "qualifier": null }, "name": "garlic powder", "prep": null, "optional": false },
+    { "id": "ingredient-onion-powder", "component_id": "component-main", "row_order": 4, "first_use_step": 2, "display": "2 tsp onion powder", "quantity": { "value": 2, "min": null, "max": null, "unit": "tsp", "display": "2 tsp", "qualifier": null }, "name": "onion powder", "prep": null, "optional": false },
+    { "id": "ingredient-smoked-paprika", "component_id": "component-main", "row_order": 5, "first_use_step": 2, "display": "2 tsp smoked paprika", "quantity": { "value": 2, "min": null, "max": null, "unit": "tsp", "display": "2 tsp", "qualifier": null }, "name": "smoked paprika", "prep": null, "optional": false },
+    { "id": "ingredient-black-pepper", "component_id": "component-main", "row_order": 6, "first_use_step": 2, "display": "1 tsp black pepper", "quantity": { "value": 1, "min": null, "max": null, "unit": "tsp", "display": "1 tsp", "qualifier": null }, "name": "black pepper", "prep": null, "optional": false },
+    { "id": "ingredient-potato-starch-mixture", "component_id": "component-main", "row_order": 7, "first_use_step": 2, "display": "¼ cup potato starch, for the beef mixture", "quantity": { "value": 0.25, "min": null, "max": null, "unit": "cup", "display": "¼ cup", "qualifier": "for the beef mixture" }, "name": "potato starch", "prep": null, "optional": false },
+    { "id": "ingredient-potato-starch-coating", "component_id": "component-main", "row_order": 8, "first_use_step": 4, "display": "1⅓ cups potato starch, for coating", "quantity": { "value": 1.3333333333, "min": null, "max": null, "unit": "cups", "display": "1⅓ cups", "qualifier": "for coating" }, "name": "potato starch", "prep": null, "optional": false },
+    { "id": "ingredient-avocado-oil", "component_id": "component-main", "row_order": 9, "first_use_step": 5, "display": "Avocado oil or other high-heat cooking spray", "quantity": { "value": null, "min": null, "max": null, "unit": null, "display": "as needed", "qualifier": null }, "name": "avocado oil or other high-heat cooking spray", "prep": null, "optional": false }
+  ],
+  "steps": [
+    { "id": "step-1", "order": 1, "text": "Preheat the oven to 450°F on convection. Line sheet pans with parchment paper or lightly oil the pans.", "card_label": "Preheat oven and prepare pans", "card_detail": "450°F convection · line or lightly oil sheet pans", "inputs": [], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-2", "order": 2, "text": "Combine the ground beef, salt, garlic powder, onion powder, smoked paprika, black pepper, and ¼ cup potato starch. Mix just until evenly combined; avoid heavily kneading or compacting the beef.", "card_label": "Season and mix beef", "card_detail": "¼ cup potato starch · mix just until combined · do not compact", "inputs": [{ "type": "ingredient", "id": "ingredient-ground-beef" }, { "type": "ingredient", "id": "ingredient-kosher-salt" }, { "type": "ingredient", "id": "ingredient-garlic-powder" }, { "type": "ingredient", "id": "ingredient-onion-powder" }, { "type": "ingredient", "id": "ingredient-smoked-paprika" }, { "type": "ingredient", "id": "ingredient-black-pepper" }, { "type": "ingredient", "id": "ingredient-potato-starch-mixture" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-3", "order": 3, "text": "Divide the mixture into approximately 64 nuggets, about 1 oz each. Form each into a flattened nugget shape about ½ inch thick.", "card_label": "Shape beef nuggets", "card_detail": "approximately 64 · about 1 oz each · about ½ inch thick", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-4", "order": 4, "text": "Put 1⅓ cups potato starch in a shallow bowl. Lightly coat each nugget on all sides, shaking off the excess.", "card_label": "Coat nuggets in starch", "card_detail": "1⅓ cups potato starch · shallow bowl · shake off excess", "inputs": [{ "type": "component", "id": "component-main" }, { "type": "ingredient", "id": "ingredient-potato-starch-coating" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-5", "order": 5, "text": "Arrange the nuggets on the prepared sheet pans with space between them. Spray the tops and sides thoroughly with oil.", "card_label": "Arrange and oil nuggets", "card_detail": "Leave space between nuggets · spray tops and sides thoroughly", "inputs": [{ "type": "component", "id": "component-main" }, { "type": "ingredient", "id": "ingredient-avocado-oil" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-6", "order": 6, "text": "Lightly dust the nuggets with a second, very thin coating of potato starch. Spray again just enough to moisten any visibly dry starch. There should not be thick white patches of potato starch remaining.", "card_label": "Apply second thin starch coat", "card_detail": "second very thin coat · moisten dry starch · no thick white patches", "inputs": [{ "type": "component", "id": "component-main" }, { "type": "ingredient", "id": "ingredient-potato-starch-coating" }, { "type": "ingredient", "id": "ingredient-avocado-oil" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-7", "order": 7, "text": "Bake at 450°F convection for 5 minutes.", "card_label": "Bake first side", "card_detail": "450°F convection · 5 min", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-8", "order": 8, "text": "Flip the nuggets and lightly spray any dry areas with oil.", "card_label": "Flip and touch up oil", "card_detail": "Flip · lightly spray dry areas", "inputs": [{ "type": "component", "id": "component-main" }, { "type": "ingredient", "id": "ingredient-avocado-oil" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-9", "order": 9, "text": "Continue baking for approximately 3–7 minutes, until browned and crisp and the center of the thickest nugget reaches 160°F / 71°C.", "card_label": "Bake until crisp and safe", "card_detail": "approximately 3–7 min · browned and crisp · center 160°F / 71°C", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] },
+    { "id": "step-10", "order": 10, "text": "Remove from the oven and let rest for 2–3 minutes before serving.", "card_label": "Rest before serving", "card_detail": "rest 2–3 min", "inputs": [{ "type": "component", "id": "component-main" }], "outputs": [{ "type": "component", "id": "component-main" }] }
+  ],
+  "timeline": {
+    "summary": "Prepare and shape the nuggets while the oven heats, then complete the two-stage coating and bake through the flip and rest.",
+    "tasks": [
+      { "id": "timeline-preheat", "label": "Preheat oven and prepare pans", "lane": "Oven", "source_step_ids": ["step-1"], "duration_min": null, "duration_max": null, "duration_source": "unspecified", "inferred": false, "depends_on": [] },
+      { "id": "timeline-mix", "label": "Season and mix beef", "lane": "Beef", "source_step_ids": ["step-2"], "duration_min": null, "duration_max": null, "duration_source": "unspecified", "inferred": false, "depends_on": [] },
+      { "id": "timeline-shape", "label": "Shape nuggets", "lane": "Beef", "source_step_ids": ["step-3"], "duration_min": null, "duration_max": null, "duration_source": "unspecified", "inferred": false, "depends_on": [{ "task_id": "timeline-mix", "relationship": "finish-to-start" }] },
+      { "id": "timeline-coat", "label": "Apply first starch coat", "lane": "Coating", "source_step_ids": ["step-4"], "duration_min": null, "duration_max": null, "duration_source": "unspecified", "inferred": false, "depends_on": [{ "task_id": "timeline-shape", "relationship": "finish-to-start" }] },
+      { "id": "timeline-arrange", "label": "Arrange and oil nuggets", "lane": "Pans", "source_step_ids": ["step-5"], "duration_min": null, "duration_max": null, "duration_source": "unspecified", "inferred": false, "depends_on": [{ "task_id": "timeline-coat", "relationship": "finish-to-start" }] },
+      { "id": "timeline-second-coat", "label": "Apply second thin starch coat", "lane": "Coating", "source_step_ids": ["step-6"], "duration_min": null, "duration_max": null, "duration_source": "unspecified", "inferred": false, "depends_on": [{ "task_id": "timeline-arrange", "relationship": "finish-to-start" }] },
+      { "id": "timeline-bake-first", "label": "Bake first side", "lane": "Oven", "source_step_ids": ["step-7"], "duration_min": 5, "duration_max": 5, "duration_source": "source", "inferred": false, "depends_on": [{ "task_id": "timeline-preheat", "relationship": "finish-to-start" }, { "task_id": "timeline-second-coat", "relationship": "finish-to-start" }] },
+      { "id": "timeline-flip", "label": "Flip and touch up oil", "lane": "Oven", "source_step_ids": ["step-8"], "duration_min": null, "duration_max": null, "duration_source": "unspecified", "inferred": false, "depends_on": [{ "task_id": "timeline-bake-first", "relationship": "finish-to-start" }] },
+      { "id": "timeline-bake-finish", "label": "Bake until crisp and safe", "lane": "Oven", "source_step_ids": ["step-9"], "duration_min": 3, "duration_max": 7, "duration_source": "source", "inferred": false, "depends_on": [{ "task_id": "timeline-flip", "relationship": "finish-to-start" }] },
+      { "id": "timeline-rest", "label": "Rest nuggets", "lane": "Finishing", "source_step_ids": ["step-10"], "duration_min": 2, "duration_max": 3, "duration_source": "source", "inferred": false, "depends_on": [{ "task_id": "timeline-bake-finish", "relationship": "finish-to-start" }] }
+    ],
+    "notes": [
+      "The source provides 5 minutes for the first bake, approximately 3–7 minutes for the second bake, and 2–3 minutes for resting. Mixing, shaping, coating, pan preparation, flipping, and oven preheating durations are unspecified.",
+      "The source gives a total cook-time range of 8–12 minutes per batch; the two bake tasks use the more specific step timings.",
+      "Multiple pans may require rotation and position swapping when the nuggets are flipped, as stated in the notes."
+    ]
+  },
+  "notes": [
+    { "id": "note-yield", "text": "Yield: About 64 nuggets", "related_ids": ["step-3"] },
+    { "id": "note-times", "text": "Prep Time: 25 minutes; Cook Time: 8–12 minutes per batch", "related_ids": ["step-7", "step-9"] },
+    { "id": "note-batching", "text": "Batching: Don't crowd the pans. With 4 lb of beef, use multiple sheet pans or cook in batches so convection air can circulate around the nuggets.", "related_ids": ["step-5"] },
+    { "id": "note-multiple-pans", "text": "Multiple Pans: If baking two pans simultaneously, rotate the pans and swap their positions when you flip the nuggets.", "related_ids": ["step-8"] },
+    { "id": "note-starch", "text": "Potato Starch: Keep the exterior coating thin. Too much starch can leave a chalky or gummy coating.", "related_ids": ["ingredient-potato-starch-coating", "step-4", "step-6"] },
+    { "id": "note-beef", "text": "Beef: 90/10 is a good balance between beef flavor and crispness. 80/20 will work but will produce substantially more rendered fat.", "related_ids": ["ingredient-ground-beef"] },
+    { "id": "note-oil", "text": "Oil: Avocado oil is particularly well suited to the 450°F convection temperature.", "related_ids": ["ingredient-avocado-oil", "step-1", "step-7"] },
+    { "id": "note-make-ahead", "text": "Make Ahead: Shape and season the nuggets ahead of time, but wait to apply the exterior potato starch until shortly before baking.", "related_ids": ["step-3", "step-4"] }
+  ],
+  "validation": {
+    "needs_review": true,
+    "issues": ["Several timeline task durations are unspecified because the source does not provide them; the renderer should not invent precise durations."]
+  }
+}
